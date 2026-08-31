@@ -11,10 +11,10 @@ SCPN Theta Pinch Core — Architecture summary
 # Architecture summary
 
 `SCPN-THETA-PINCH-CORE` is the device-family owner for theta-pinch systems
-inside the SCPN Reactor Systems Research Group. The repository is currently
-`architecture_only`: it defines the device boundary, its ecosystem
-contracts, and the validation tooling that enforces both, and it implements
-no reactor capability.
+inside the SCPN Reactor Systems Research Group. The repository holds one implemented
+capability — the device configuration model at `computational_prototype`
+(`src/scpn_theta_pinch_core/`, ADR 0002) — alongside the device boundary, its
+ecosystem contracts, and the validation tooling that enforces both.
 
 The authoritative architecture record is
 [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md). The ownership decision and

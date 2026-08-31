@@ -1,13 +1,19 @@
 {
-  "capabilities": [],
+  "capabilities": [
+    {
+      "evidence_maturity": "computational_prototype",
+      "evidence_pointer": "VALIDATION.md#device-configuration-model",
+      "identifier": "device_configuration_model"
+    }
+  ],
   "claims": [],
-  "evidence_maturity": "architecture_only",
-  "implemented_capability_count": 0,
+  "evidence_maturity": "computational_prototype",
+  "implemented_capability_count": 1,
   "project": "SCPN-THETA-PINCH-CORE",
   "schema": "scpn.capability-inventory.v1",
   "schema_version": "1.0.0",
   "source": {
     "manifest_path": "reactor-domain.json",
-    "manifest_sha256": "39bb08117ff240ace1306780027ecf5946a86aeb8acd7b9b402d36e540cb5870"
+    "manifest_sha256": "eac6fe8c2f95d1680b13ff5e25f3ada631748e48101cf48d24672c82163c9971"
   }
 }
