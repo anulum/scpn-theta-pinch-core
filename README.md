@@ -8,6 +8,11 @@ Contact: www.anulum.li | protoscience@anulum.li
 SCPN Theta Pinch Core — README
 -->
 
+<div align="center">
+  <img src="docs/assets/repo_header.png"
+       alt="SCPN Theta Pinch Core — Azimuthal Current, Axial Field">
+</div>
+
 # SCPN Theta Pinch Core
 
 Governed device-family repository for theta-pinch fusion systems within the

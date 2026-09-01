@@ -20,6 +20,9 @@ path = [
     "tests/data/plan_envelope_fixture.json",
     ".zenodo.json",
     ".github/workflow-inventory.json",
+    "docs/assets/repo_header.png",
+    "docs/assets/repo_header_beta_gate.png",
+    "docs/assets/repo_header_implosion.png",
     ".github/FUNDING.yml",
 ]
 precedence = "aggregate"
