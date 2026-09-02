@@ -14,6 +14,25 @@ SCPN Theta Pinch Core — CHANGELOG
 
 ### Added
 
+- Level-0 device physics (`src/scpn_theta_pinch_core/physics/`), the third
+  implemented capability at `computational_prototype` (ADR 0005): the
+  sharp-boundary relations of the 1973 Scyllac review — operating state
+  (beta, ion temperature, Alfvén speed, end propagation time), the
+  `l = 1, 0` toroidal equilibrium, the `m = 1` growth estimate with the
+  wall-stabilisation condition, and the empirical end-loss scaling — with
+  a canonical `Level0PhysicsRecord` and explicit `ModelInputs`. Native
+  kernels (`rust/`, crate `scpn-theta-pinch-rs`, optional distribution
+  `scpn-theta-pinch-native`) reproduce every value bit for bit, proven by
+  parity tests; a standard-conformant benchmark
+  (`benchmarks/level0_physics.py`) with a committed local artefact and
+  `docs/benchmarks.md`. The manifest declares the capability and the
+  owned domain `analytic_device_physics_models`; descriptor and inventory
+  regenerated; the envelope fixture regenerated for the new
+  `manifest_sha256` (plan bytes unchanged). Gates extended: `mypy` scope
+  includes `benchmarks/` (and `make typecheck` now covers `src/`), a
+  `rust` CI job runs the crate gates, parity and a benchmark smoke,
+  `make rust` locally.
+
 - Diagnostic-plan depth: per-channel signal inventories, frame
   transformations with a fixed kind-admissibility table and connectivity
   rule, and a clock topology partitioning the physical clocks into rooted

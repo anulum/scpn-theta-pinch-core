@@ -17,9 +17,9 @@ followed by the evidence record of each implemented capability.
 
 | Gate | Command | Scope |
 |---|---|---|
-| Lint | `ruff check .` | all Python under `src/`, `tools/`, and `tests/` |
+| Lint | `ruff check .` | all Python under `src/`, `tools/`, `tests/` and `benchmarks/` |
 | Format | `ruff format --check .` | same scope |
-| Typing | `mypy --strict src tools tests` | zero errors, strict mode |
+| Typing | `mypy --strict src tools tests benchmarks` | zero errors, strict mode |
 | Tests + coverage | `pytest -q --cov=src --cov=tools --cov-branch --cov-fail-under=100` | 100 % statement and branch coverage of `src/` and `tools/` |
 | Domain manifest | `python3 tools/validate_reactor_domain.py reactor-domain.json` | schema, registry version/digest, exact configuration set, capability inventory shape and ceiling rule, safety boundary |
 | Studio descriptor | `python3 tools/derive_studio_descriptor.py --check` | committed descriptor byte-identical to a fresh derivation |
@@ -27,6 +27,8 @@ followed by the evidence record of each implemented capability.
 | Licensing | `reuse lint` | REUSE 3.x compliance of the full tree |
 | Workflow lint | `actionlint` | all files under `.github/workflows/` |
 | Workflow modularity | `python3 tools/audit_workflows.py` | distributed workflow inventory: single ownership per job, coordinator/gate contract, action pinning, size ceilings |
+| Native kernels | `make rust` (`cargo fmt --check`, `cargo clippy --all-targets --features python -- -D warnings`, `cargo test` in `rust/`) | formatting, lints with warnings denied, kernel unit tests |
+| Native parity | `pytest -q tests/test_physics_native_parity.py` | bit-exact float64 agreement of every native kernel with the Python floor (skipped hermetically when the optional native module is absent) |
 | Documentation | `python3 tools/preflight.py --only docs` | UTF-8 readability and relative-link integrity of every Markdown file |
 | Orchestrated | `python3 tools/preflight.py` | fail-closed run of all gates above |
 
@@ -47,7 +49,7 @@ verifies locally and in hosted CI.
 |---|---|
 | `ci.yml` | coordinator and stable required gate |
 | `reusable-static-policy.yml` | lint, format, typing, domain policy, workflow guard |
-| `reusable-tests.yml` | tests with complete statement and branch coverage |
+| `reusable-tests.yml` | tests with complete statement and branch coverage; native crate gates, parity and benchmark smoke |
 | `pre-commit.yml` | exact pre-commit parity |
 | `codeql.yml` | Python code scanning |
 | `security-audit.yml` | secrets, dependency, licence, and workflow policy |
@@ -200,3 +202,77 @@ gate:
   domain (`clk_facility` root, `clk_shot` member); multi-domain rules
   are exercised by test-constructed plans. Scopes are declarations;
   `mapping_state` stays `unmapped`.
+
+## Level-0 device physics
+
+Evidence record of the `level0_device_physics` capability
+(`computational_prototype`; design record: `docs/adr/0005-level0-device-physics.md`).
+Source: W. E. Quinn et al., "Review of Scyllac theta-pinch experiments",
+LA-UR-73-1053 (1973), OSTI 4460392 (open access).
+
+What is exercised, all under the 100 % statement-and-branch coverage gate
+(`src/scpn_theta_pinch_core/physics/`):
+
+- **Sharp-boundary state** (`balance.py`): `beta = p / (B^2 / 2 mu0)` from
+  the configuration, the equal-species ion temperature `T = p / (2 n e)`,
+  the Alfvén speed `B / sqrt(mu0 n m_i)` and the end-to-centre propagation
+  time `(L/2) / v_A` at a declared density and ion mass; `beta = 1`
+  (allowed by the configuration) is refused by every sharp-boundary model,
+  never clamped. Tests verify the closed forms and the `m_i^-1/2`, `n^-1/2`
+  scalings.
+- **Scyllac `l = 1, 0` toroidal equilibrium** (`toroidal_equilibrium.py`;
+  source p. 2, eqs. 3 and 7): the excursions `delta_1`, `delta_0`, their
+  product against the required `-2 / ((3 - 2 beta) h^2 a R)`, the balance
+  ratio (unity at equilibrium, tested to `1e-12`), the required
+  field-ratio product and the auxiliary field ratio of eq. (3). Anchor:
+  the 5-m sector point of Fig. 2 (beta 0.85, a 0.7 cm, R 2.375 m,
+  h 0.19 /cm) yields a required product of −0.0059 against the measured
+  −0.0064 and the plotted sharp-boundary value ≈ −0.0065; the quotient
+  forms of the excursions are the ones that reproduce it, which resolves
+  the scan's typographical ambiguity, with a declared 10 % tolerance.
+- **`m = 1` growth estimate and wall stabilisation** (`stability.py`;
+  eqs. 4 and 6; the wall condition derived from eq. 6): the three terms,
+  the bracket, the growth rate `h v_A sqrt(bracket)` with a stable
+  disposition when the bracket is non-positive, and the reduced eq. (4)
+  estimate. Anchors: the source's worked example `a = 3 cm, beta = 0.8,
+  h a = 0.13 → a/b = 0.4` is reproduced to `0.40 ± 0.01` (0.399); with the
+  source's stated orders of magnitude for the 5-m sector (B ~ 3.6 T,
+  n ~ 2.5e22 m^-3, beta 0.85, equal field ratios with product 0.0064) the
+  growth rate lands within a factor of two of the source's calculated
+  1.0 MHz (the source does not print every input of its own calculation,
+  so no tighter statement is made); the growth rate is exactly zero at the
+  wall-stabilisation boundary.
+- **End-loss scaling** (`end_loss.py`; p. 16 and Table I): `tau ∝ L /
+  T_i^(1/2)` normalised to the linear Scyllac point (5 m, 2.7 keV,
+  11.5 μs); the Table I rows for Scylla IV-1 (2.13 μs) and Scylla IV-3
+  (9.67 μs) are reproduced within 1 % (the table's own rounding); the
+  scaling exponents are exact.
+- A composed `Level0PhysicsRecord` (`scpn.theta-pinch-level0-physics.v1`
+  `1.0.0`) with canonical bytes, SHA-256 digest and fixed non-claims, built
+  from the validated configuration and explicit `ModelInputs`; every input
+  rejects non-positive and non-finite values; a plasma radius not smaller
+  than the coil radius is refused.
+- **Native parity**: the Rust crate in `rust/` mirrors every kernel with
+  identical operation order; `tests/test_physics_native_parity.py`
+  compares float64 bit patterns over a 36-point state grid plus the
+  equilibrium, growth, wall and end-loss inputs.
+- **Benchmark**: `benchmarks/level0_physics.py` per the ecosystem
+  benchmark standard; results in `docs/benchmarks.md` and the committed
+  local artefact `benchmarks/results/level0_physics.local.json`.
+
+Bounded claims — what is NOT claimed:
+
+- Every number is a closed-form evaluation of a 1973 sharp-boundary model
+  on a synthetic configuration; no equilibrium, stability, compression or
+  transport equation is solved, and no eigenvalue problem exists here.
+- The anchors reproduce numbers printed in the source; they are not
+  correlations with experimental data, and the growth-rate anchor is an
+  order-of-magnitude reproduction by design.
+- No adiabatic-compression, implosion-heating, yield, gain, reactivity or
+  confinement statement is made; the end-loss scaling is an empirical
+  three-device fit that the source itself contrasts with two disagreeing
+  theoretical models.
+- No value describes, approximates or validates any real machine; the
+  benchmark measures per-point evaluation cost of two implementations of
+  the same closed forms, not physics.
+- Maturity stays `computational_prototype`.

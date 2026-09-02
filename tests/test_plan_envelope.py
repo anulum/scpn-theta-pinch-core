@@ -42,7 +42,7 @@ from scpn_theta_pinch_core.plan_envelope import (
 )
 
 FIXTURE = Path(__file__).parent / "data" / "plan_envelope_fixture.json"
-FIXTURE_SHA256 = "5f8fe33fa4ce7c1fe591a6aefee852e91c74cdff0424c19b3592c0b0604f0611"
+FIXTURE_SHA256 = "8ebe471a5b6f2b28b616c974c145b2f4a6a7489e970fc40e9cb4c38e04624b66"
 
 
 def fixture_document() -> dict[str, Any]:

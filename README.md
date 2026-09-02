@@ -21,21 +21,29 @@ owner of device-level truth for the `theta_pinch` configuration of the SCPN
 Phase Orchestrator reactor registry (azimuthal-current pinch).
 
 **Evidence maturity: `computational_prototype`** (per-capability; ADR 0002).
-Two capabilities are implemented: the device configuration model —
+Three capabilities are implemented: the device configuration model —
 validated parameter objects with documented consistency estimates,
 canonical serialisation, and a data-only SPO registry pin
 (evidence: `VALIDATION.md#device-configuration-model`) — and the
 diagnostic and clock semantics model — synthetic channel and clock
 declarations aligned fail-closed with the pinned SPO observability
 catalogue (ADR 0003, evidence:
-`VALIDATION.md#diagnostic-and-clock-semantics`). No parameter set or
-channel describes any real machine or diagnostic; the claim inventory
+`VALIDATION.md#diagnostic-and-clock-semantics`); and the level-0 device
+physics — the sharp-boundary relations of the 1973 Scyllac review
+(operating state, `l = 1, 0` toroidal equilibrium, `m = 1` growth estimate
+with wall stabilisation, end-loss scaling) evaluated on the validated
+configuration, with optional native kernels proven bit-exact against the
+Python floor (ADR 0005, evidence: `VALIDATION.md#level-0-device-physics`).
+No parameter set or channel describes any real machine or diagnostic; the claim inventory
 is empty and verified by the domain validator.
 
 ## Scope
 
 This repository owns, for the theta-pinch device family:
 
+- the analytic device physics models: closed-form and 0-D models from the
+  theta-pinch literature evaluated on the validated configuration (no
+  solver code, no FUSION seam);
 - the device boundary: plant and experiment truth, shot lifecycle, and
   configuration policy for linear devices in which a fast-rising axial
   magnetic field, driven by a single-turn coil around the discharge tube,
@@ -77,8 +85,10 @@ This repository owns, for the theta-pinch device family:
 
 This repository is not machine-ready, not safety-certified, and not
 reactor-ready. It contains no implemented solver, no controller, no
-benchmark result, no experimental correlation, no dataset, and no published
-artefact, and no parameter set describes or validates any real machine. Coil-geometry and fuel-cycle choices are configuration
+experimental correlation, no dataset, and no published artefact; the
+level-0 sharp-boundary models and their timing benchmark are computational
+prototypes, not validated performance or confinement claims, and no
+parameter set describes or validates any real machine. Coil-geometry and fuel-cycle choices are configuration
 facets, not separate claims. No capability has reached any
 evidence-maturity state beyond `computational_prototype`.
 
@@ -99,9 +109,10 @@ Every gate currently active in this repository is listed in
 
 ```bash
 make lint        # ruff check + ruff format --check
-make typecheck   # mypy --strict tools tests
-make test        # pytest with 100 % statement and branch coverage on tools/
+make typecheck   # mypy --strict src tools tests benchmarks
+make test        # pytest with 100 % statement and branch coverage
 make validate    # domain manifest, descriptor, and inventory checks
+make rust        # native crate: fmt, clippy (warnings denied), tests
 make preflight   # the full fail-closed gate sequence
 ```
 

@@ -65,6 +65,24 @@ REQUIRED_PATHS = (
     "src/scpn_theta_pinch_core/plan_envelope.py",
     "tests/data/plan_envelope_fixture.json",
     "src/scpn_theta_pinch_core/parameters.py",
+    "docs/adr/0005-level0-device-physics.md",
+    "docs/benchmarks.md",
+    "benchmarks/level0_physics.py",
+    "benchmarks/results/level0_physics.local.json",
+    "rust/Cargo.toml",
+    "rust/Cargo.lock",
+    "rust/pyproject.toml",
+    "rust/src/lib.rs",
+    "rust/src/balance.rs",
+    "rust/src/toroidal_equilibrium.rs",
+    "rust/src/stability.rs",
+    "rust/src/end_loss.rs",
+    "src/scpn_theta_pinch_core/physics/__init__.py",
+    "src/scpn_theta_pinch_core/physics/balance.py",
+    "src/scpn_theta_pinch_core/physics/toroidal_equilibrium.py",
+    "src/scpn_theta_pinch_core/physics/stability.py",
+    "src/scpn_theta_pinch_core/physics/end_loss.py",
+    "src/scpn_theta_pinch_core/physics/level0.py",
     "studio/portfolio-descriptor.json",
     "studio/portfolio-descriptor.schema.json",
     "tools/preflight.py",
@@ -136,7 +154,13 @@ def test_manifest_declares_exact_configuration_assignment() -> None:
             "evidence_maturity": "computational_prototype",
             "evidence_pointer": "VALIDATION.md#diagnostic-and-clock-semantics",
         },
+        {
+            "identifier": "level0_device_physics",
+            "evidence_maturity": "computational_prototype",
+            "evidence_pointer": "VALIDATION.md#level-0-device-physics",
+        },
     ]
+    assert "analytic_device_physics_models" in manifest["owned_domains"]
     assert manifest["claims"] == []
 
 
@@ -150,7 +174,7 @@ def test_descriptor_and_inventory_embed_current_manifest_digest() -> None:
     assert descriptor["source"]["manifest_sha256"] == digest
     assert inventory["source"]["manifest_sha256"] == digest
     assert descriptor["lifecycle"]["state"] == "not_federated"
-    assert inventory["implemented_capability_count"] == 2
+    assert inventory["implemented_capability_count"] == 3
 
 
 def test_no_agent_state_trees_exist() -> None:

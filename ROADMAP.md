@@ -41,6 +41,18 @@ this repository until it appears in the capability inventory with evidence.
   (bank waveform event train, rotational-mode probe array, synthetic oscillator); `computational_prototype` (ADR 0003,
   `VALIDATION.md#diagnostic-and-clock-semantics`). No ingress is
   declared; the SPO semantic-profile state remains `not_declared`.
+- **Level-0 device physics** (landed 2026-09-02) — the sharp-boundary
+  relations of the 1973 Scyllac review evaluated on the validated
+  configuration: operating state (beta, ion temperature, Alfvén speed,
+  end propagation time), `l = 1, 0` toroidal equilibrium, `m = 1` growth
+  estimate with wall stabilisation, empirical end-loss scaling; a
+  canonical `Level0PhysicsRecord`, optional native kernels bit-exact with
+  the Python floor, and a standard-conformant benchmark;
+  `computational_prototype` (ADR 0005,
+  `VALIDATION.md#level-0-device-physics`). Follow-ups under the same
+  capability: adiabatic-compression and implosion-heating relations once
+  a source is on file; the family's 3D model once the shared kernel
+  library can be pinned.
 
 ## Planned (no implementation exists; ordering is not a commitment)
 1. **Safety-envelope declaration** — machine-readable operational envelope
