@@ -47,8 +47,13 @@ overstate what an analytic surface is.
    LA-UR-73-1053 (1973)): a straight theta pinch whose main compression
    coil is flanked by mirror coils of their own bank, main and mirror
    coils sharing one bore, with a discharge tube of smaller bore inside
-   them. No dimension of that machine or any other is used; every
-   parameter set is synthetic.
+   them. Parameter sets are declared by the caller. The repository's own
+   reference fixtures are synthetic; one anchor fixture carries the
+   dimensions the source prints (coil bore 11 cm, mirror-coil length 16 cm,
+   tube bore 8.8 cm, coil length five metres) so the tier can be checked
+   against a published arrangement, exactly as the level-0 models are
+   checked against published numbers. Reproducing a printed dimension is
+   an anchor; no claim about that machine follows from it.
 3. The model is tier G1: analytic bodies (solid cylinders and annular
    tubes) tessellated into closed, outward-oriented triangle meshes with
    fixed vertex and face order. Seven bodies in a fixed order: discharge

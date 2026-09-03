@@ -18,7 +18,13 @@ import math
 import pytest
 
 from geometry_fixtures import (
+    ANCHOR_COIL_LENGTH_M,
+    ANCHOR_COIL_RADIUS_M,
+    ANCHOR_MIRROR_COIL_LENGTH_M,
+    ANCHOR_TUBE_INNER_RADIUS_M,
     REFERENCE_PLASMA_RADIUS_M,
+    anchor_configuration,
+    anchor_geometry,
     reference_configuration,
     reference_geometry,
 )
@@ -36,7 +42,7 @@ from scpn_theta_pinch_core.geometry import (
 from scpn_theta_pinch_core.parameters import CompressionCoil
 
 REFERENCE_MODEL_SHA256 = (
-    "a4edd9e59ef8de93855e7ab445f9f25318a2099854bf7e1dad5cda2c4602d603"
+    "480b7e10a9096802ea00234002a7cc3ad498b1566a7ca0b130b761c92182a36d"
 )
 
 
@@ -255,3 +261,34 @@ def test_body_inventory_is_enforced() -> None:
             segments=8,
             meshes=model.meshes[::-1],
         )
+
+
+def test_model_of_the_printed_linear_arrangement_reproduces_its_dimensions() -> None:
+    """The anchor geometry reproduces every dimension the source prints.
+
+    Section VI.A of the Scyllac review prints the five-metre linear theta
+    pinch: a main compression coil five metres long flanked by 16 cm mirror
+    coils, main and mirror coils sharing an inside diameter of 11 cm, with a
+    quartz discharge tube of 8.8 cm inside diameter inside them. This proves
+    the tier can carry a published arrangement, not that the model says
+    anything about how that machine behaved.
+    """
+    configuration = anchor_configuration()
+    geometry = anchor_geometry()
+    model = build_device_model(configuration, geometry, 0.008, 512)
+    tube, main, upstream, downstream, _, _, _ = model.meshes
+    assert configuration.coil.coil_radius_m == ANCHOR_COIL_RADIUS_M
+    assert main.bounding_box()[1][2] == ANCHOR_COIL_LENGTH_M
+    assert main.bounding_box()[0][2] == 0.0
+    assert geometry.discharge_tube_inner_radius_m == ANCHOR_TUBE_INNER_RADIUS_M
+    assert tube.bounding_box()[1][0] == pytest.approx(
+        ANCHOR_TUBE_INNER_RADIUS_M + geometry.discharge_tube_wall_thickness_m
+    )
+    assert tube.bounding_box()[1][0] < ANCHOR_COIL_RADIUS_M
+    for mirror in (upstream, downstream):
+        low, high = mirror.bounding_box()
+        assert (high[2] - low[2]) == pytest.approx(ANCHOR_MIRROR_COIL_LENGTH_M)
+        assert high[0] == pytest.approx(
+            ANCHOR_COIL_RADIUS_M + geometry.mirror_coil_wall_thickness_m
+        )
+    assert model.digest_sha256() != reference_model(512).digest_sha256()

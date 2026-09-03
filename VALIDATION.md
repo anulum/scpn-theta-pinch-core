@@ -306,8 +306,12 @@ this repository exercises, all under the coverage gate
   review already on file for the level-0 models (W. E. Quinn et al.,
   LA-UR-73-1053 (1973)): a straight theta pinch whose main compression
   coil is flanked by mirror coils of their own bank, main and mirror coils
-  sharing one bore, with a discharge tube of smaller bore inside them. No
-  dimension of that machine or any other is used.
+  sharing one bore, with a discharge tube of smaller bore inside them. The
+  reference fixtures are synthetic; one anchor fixture carries the printed
+  dimensions (coil bore 11 cm, coil length five metres, mirror-coil length
+  16 cm, tube bore 8.8 cm) and a test proves the model reproduces every one
+  of them. Reproducing a printed dimension is an anchor, never a claim
+  about that machine.
 - **Kernel library pin**: the manifest block `kernel_library` is validated
   field by field (distribution, version, 40-hex source commit, 64-hex
   inventory digest, sorted unique kernel identifiers, no other field); a

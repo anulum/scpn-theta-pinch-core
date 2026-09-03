@@ -19,8 +19,11 @@ linear theta pinch described by W. E. Quinn et al., "Review of Scyllac
 theta-pinch experiments", LA-UR-73-1053 (1973), section VI.A, pp. 13-14
 (a straight theta pinch whose main compression coil is flanked by mirror
 coils of their own bank, main and mirror coils sharing one bore, with a
-discharge tube of smaller bore inside them); no dimension of that machine
-or any other is used, and every parameter set is synthetic.
+discharge tube of smaller bore inside them). Parameter sets are declared
+by the caller: the repository's own fixtures are synthetic, and one
+anchor fixture carries the dimensions that section prints so the tier can
+be checked against a published arrangement. Reproducing a printed
+dimension is an anchor, never a claim about that machine.
 
 The coil bore radius and the coil length are not repeated here: they are
 the validated configuration's ``coil_radius_m`` and ``coil_length_m``,
