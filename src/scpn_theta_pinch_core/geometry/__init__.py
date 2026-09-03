@@ -6,21 +6,35 @@
 # Contact: www.anulum.li | protoscience@anulum.li
 # SCPN Theta-Pinch Core — device geometry and 3D model
 
-"""Device geometry and tier-G1 3D model of the theta-pinch family.
+"""Device geometry, tier-G1 3D model and tier-G2 CAD model of the family.
 
 A validated device geometry, the composed device model record of seven
-analytic bodies, and the device-side provenance of the open-format
-exports (binary STL, glTF 2.0 binary). The unit circle, the tessellation
-primitives, the closed-mesh contract and the serialisers are consumed
-from the pinned shared kernel library ``scpn_reactor_kernels`` (ADR
-0007); the mesh type of every body is that library's ``TriangleMesh``.
-Every body is an analytic surface of a synthetic design; nothing here is
-a CAD solid, an equilibrium boundary or an engineering model, and no
-value describes a real machine. Design records: ADR 0006, ADR 0007.
+analytic bodies, the composed device CAD model record of the same seven
+bodies as B-rep solids on the pinned third-party OpenCASCADE kernel, and
+the device-side provenance of the open-format exports (binary STL, glTF
+2.0 binary, STEP). The unit circle, the tessellation primitives, the
+closed-mesh contract, the serialisers and the B-rep, STEP, faceting and
+body-evidence kernels are consumed from the pinned shared kernel library
+``scpn_reactor_kernels``; the mesh type of every body is that library's
+``TriangleMesh`` and the per-body evidence is its ``BodyEvidence``. Every
+tier-G1 body is an analytic surface and every tier-G2 body is a B-rep
+solid of the same declared design; nothing here is an equilibrium
+boundary or an engineering model, and no value describes a real machine.
+Design records: ADR 0006, ADR 0007, ADR 0008.
 """
 
 from __future__ import annotations
 
+from scpn_theta_pinch_core.geometry.cad import (
+    CAD_MODEL_NON_CLAIMS,
+    CAD_MODEL_SCHEMA,
+    CAD_MODEL_SCHEMA_VERSION,
+    DEFAULT_ANGULAR_DEFLECTION_RAD,
+    DEFAULT_LINEAR_DEFLECTION_M,
+    DEFAULT_REFERENCE_MESH_SEGMENTS,
+    DeviceModelCAD,
+    build_device_cad,
+)
 from scpn_theta_pinch_core.geometry.device import (
     GEOMETRY_FIELDS,
     DeviceGeometry,
@@ -34,6 +48,7 @@ from scpn_theta_pinch_core.geometry.export import (
     glb_extras,
     stl_bytes,
     write_glb,
+    write_step,
     write_stl,
 )
 from scpn_theta_pinch_core.geometry.model import (
@@ -48,6 +63,12 @@ from scpn_theta_pinch_core.geometry.model import (
 
 __all__ = [
     "BODY_NAMES",
+    "CAD_MODEL_NON_CLAIMS",
+    "CAD_MODEL_SCHEMA",
+    "CAD_MODEL_SCHEMA_VERSION",
+    "DEFAULT_ANGULAR_DEFLECTION_RAD",
+    "DEFAULT_LINEAR_DEFLECTION_M",
+    "DEFAULT_REFERENCE_MESH_SEGMENTS",
     "GEOMETRY_FIELDS",
     "GLTF_GENERATOR",
     "MODEL_NON_CLAIMS",
@@ -57,6 +78,8 @@ __all__ = [
     "STL_HEADER",
     "DeviceGeometry",
     "DeviceModel3D",
+    "DeviceModelCAD",
+    "build_device_cad",
     "build_device_model",
     "geometry_from_bytes",
     "geometry_from_record",
@@ -64,5 +87,6 @@ __all__ = [
     "glb_extras",
     "stl_bytes",
     "write_glb",
+    "write_step",
     "write_stl",
 ]

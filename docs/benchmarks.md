@@ -68,6 +68,33 @@ P50 speed-up of the native kernels over the validated Python floor:
 29.7×. The fast row requires the optional native module of the pinned
 library and is never the default.
 
+## Device CAD model — local workstation (non-isolated)
+
+Artefact: `benchmarks/results/device_model_cad.local.json`
+(schema `scpn-theta-pinch-core.device-model-cad-benchmark.v1`, generated
+2026-09-03T11:47:32.366810+00:00, at parent commit `1ed6179ea338` with the
+working tree of the landing commit). Host: 11th Gen Intel(R) Core(TM)
+i5-11600K @ 3.90GHz, Linux-7.0.0-30-generic-x86_64-with-glibc2.39, Python
+3.12.3; back-ends cadquery 2.8.0, OCP 7.9.3.1; load average at start 4.85
+(other work was running on the host); cores not isolated. Parameters: 2
+warm-up runs, 10 timed runs per operation; one declared seven-body device
+assembly; faceting at linear deflection 0.0001 m and angular deflection
+0.1 rad. There is no Python-floor row: the CAD kernels adapt pinned
+third-party code and carry no bit-exact floor by design (the library's
+ADR 0006).
+
+| Operation | P50 ms | P95 ms | mean ms | operations/s | status |
+|---|---|---|---|---|---|
+| `brep_build_and_manifest` | 24.15 | 30.31 | 24.76 | 41.4 | measured |
+| `step_export_normalised` | 6.09 | 6.79 | 6.15 | 164.2 | measured |
+| `facet_seven_bodies` | 87.86 | 96.92 | 89.40 | 11.4 | measured |
+| `device_cad_record_build` | 904.35 | 960.18 | 919.64 | 1.1 | measured |
+
+The record row is the whole capability in one call: the tier-G1 reference
+tessellation, the seven B-rep solids, the faceting, the per-body evidence
+and the normalised STEP export. It is dominated by the faceting and by the
+back-end's own measures, and it is a per-design cost, not a per-frame one.
+
 ## Fixed-runner (CI) number
 
 Not yet published: the hosted `rust` job runs a benchmark smoke that
@@ -82,6 +109,7 @@ is the local, non-isolated one above.
 make rust
 VIRTUAL_ENV=.venv PATH=.venv/bin:$PATH maturin develop --release -m rust/Cargo.toml
 .venv/bin/python benchmarks/level0_physics.py --points 100000 --warmup 3 --repeats 20 --label local
+.venv/bin/python benchmarks/device_model_cad.py --warmup 2 --repeats 10 --label local  # needs the cad extra
 ```
 
 The 3D-model rows need the pinned library's native module instead of this

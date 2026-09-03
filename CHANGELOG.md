@@ -14,6 +14,34 @@ SCPN Theta Pinch Core — CHANGELOG
 
 ### Added
 
+- Device CAD model (`src/scpn_theta_pinch_core/geometry/cad.py`), the
+  fifth implemented capability at `computational_prototype` (ADR 0008):
+  the same seven bodies as exact B-rep solids of revolution, built by the
+  pinned third-party OpenCASCADE kernel through the shared library's CAD
+  group, with a `DeviceModelCAD` record
+  (`scpn.theta-pinch-cad-model.v1`) carrying both source digests, the
+  declared plasma radius, the declared deflections and reference segment
+  count, the back-end versions, the assembly manifest, the STEP digest and
+  the per-body evidence, plus `write_step` writing exactly the digested
+  bytes. The per-body evidence is the shared library's, not this
+  repository's: the checks are statements about a solid, a mesh and a
+  bound, so a violated bound raises the library's error and the build
+  re-raises it. The anchor fixture is exercised at this tier too — a test
+  proves the coil bore and length, the discharge-tube bore and the
+  mirror-coil length the filed Scyllac review prints all appear in the
+  built solids. The kernel-library pin moves to the commit carrying the
+  CAD group, its body-evidence kernel and its bounding-box correction, and
+  the dependency gains the `cad` extra; the CI gains a `cad` job that
+  installs the system library the mesher's wheel links against before the
+  extra; the manifest, descriptor, inventory and envelope fixture are
+  regenerated; a standard-conformant benchmark with a committed local
+  artefact is added.
+
+  The library's bounding-box correction was found here: the assembly-level
+  placement checks read the manifest's boxes, and two bodies that meet
+  face to face were reported a deflection apart, because the kernel's box
+  consulted the triangulation that the faceting had attached.
+
 - Device 3D model (`src/scpn_theta_pinch_core/geometry/`), the fourth
   implemented capability at `computational_prototype` (ADR 0006 and ADR
   0007): a validated `DeviceGeometry` of the linear theta-pinch envelope

@@ -39,7 +39,12 @@ theta-pinch layout and seven analytic bodies tessellated into closed
 triangle meshes with binary STL and glTF 2.0 exports, built on the pinned
 shared geometry kernels (ADR 0006 and ADR 0007, evidence:
 `VALIDATION.md#device-3d-model`, consumer contract:
-`docs/DEVICE_3D_MODEL_CONTRACT.md`).
+`docs/DEVICE_3D_MODEL_CONTRACT.md`); and the device CAD model — the same
+seven bodies as B-rep solids on the pinned third-party OpenCASCADE kernel
+through the shared library's CAD group, each checked against its analytic
+closed form and against its tessellated twin, with a normalised
+deterministic STEP export (ADR 0008, evidence:
+`VALIDATION.md#device-cad-model`).
 No parameter set, channel or body describes any real machine or diagnostic; the claim inventory
 is empty and verified by the domain validator.
 

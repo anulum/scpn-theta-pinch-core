@@ -17,7 +17,9 @@ configuration model (ADR 0002), the diagnostic and clock semantics model
 (ADR 0003), the level-0 device physics (ADR 0005; the Scyllac
 sharp-boundary relations with optional native kernels in `rust/`) and the
 device 3D model (ADR 0006 and ADR 0007; analytic bodies tessellated on the
-pinned shared geometry kernels), all in `src/scpn_theta_pinch_core/` — alongside the device boundary, its
+pinned shared geometry kernels) and the device CAD model (ADR 0008; the
+same bodies as B-rep solids on the pinned CAD kernels, with a
+deterministic STEP export), all in `src/scpn_theta_pinch_core/` — alongside the device boundary, its
 ecosystem contracts, and the validation tooling that enforces them.
 
 The authoritative architecture record is

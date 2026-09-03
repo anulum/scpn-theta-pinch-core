@@ -26,7 +26,9 @@ device physics (design record ADR 0005, evidence record
 device 3D model (design records ADR 0006 and ADR 0007, evidence record
 `VALIDATION.md#device-3d-model`; owned domain
 `device_geometry_and_3d_model`, built on the shared geometry kernels
-pinned in `reactor-domain.json`). Every other
+pinned in `reactor-domain.json`) and the device CAD model (design record
+ADR 0008, evidence record `VALIDATION.md#device-cad-model`; the same
+bodies as B-rep solids on the shared CAD kernels of the same pin). Every other
 section below describes boundaries and contracts. The claim inventory is
 empty; capability and claim inventories are generated and drift-checked.
 
@@ -89,8 +91,8 @@ SCPN-CONTROL ──admitted ControlAction──► independent machine protectio
 | `studio/portfolio-descriptor.json` | derived Studio descriptor, `not_federated` |
 | `capability-inventory.json` | generated inventory of the four implemented capabilities |
 | `src/scpn_theta_pinch_core/physics/` | level-0 device physics (Scyllac sharp-boundary relations, composed record) |
-| `src/scpn_theta_pinch_core/geometry/` | device geometry and the tier-G1 3D model on the pinned shared kernels |
-| `docs/DEVICE_3D_MODEL_CONTRACT.md` | producer-owned contract of the exported meshes |
+| `src/scpn_theta_pinch_core/geometry/` | device geometry, the tier-G1 3D model and the tier-G2 CAD model on the pinned shared kernels |
+| `docs/DEVICE_3D_MODEL_CONTRACT.md` | producer-owned contract of the exported meshes and the STEP document |
 | `rust/` | optional native kernels (`scpn-theta-pinch-rs`), bit-exact with the Python floor |
 | `benchmarks/` | standard-conformant benchmark and committed local artefact |
 | `docs/CONTROL_ADAPTER_SPECIFICATION.md` | device-owned adapter contract |
