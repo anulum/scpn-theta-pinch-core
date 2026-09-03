@@ -31,7 +31,10 @@ SCPN Theta Pinch Core — CHANGELOG
   mirror-coil length the filed Scyllac review prints all appear in the
   built solids. The kernel-library pin moves to the commit carrying the
   CAD group, its body-evidence kernel and its bounding-box correction, and
-  the dependency gains the `cad` extra; the CI gains a `cad` job that
+  the library's CAD back-end stays optional — this package declares its own
+  `cad` extra naming the same commit, rather than making a roughly
+  one-gigabyte B-rep kernel a hard requirement of a package whose other
+  four capabilities do not need it; the CI gains a `cad` job that
   installs the system library the mesher's wheel links against before the
   extra; the manifest, descriptor, inventory and envelope fixture are
   regenerated; a standard-conformant benchmark with a committed local

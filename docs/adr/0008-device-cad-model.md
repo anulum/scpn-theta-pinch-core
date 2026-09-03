@@ -53,8 +53,16 @@ checked against the tier-G1 mesh.
    `CadError`, which the build re-raises as `DeviceGeometryError`;
    nothing is clamped.
 3. The kernel library pin moves to the commit carrying the `cad` group,
-   its body-evidence kernel and the bounding-box correction below, and the
-   `pyproject.toml` dependency gains the `cad` extra. The manifest's
+   its body-evidence kernel and the bounding-box correction below. The
+   library's `cad` extra is NOT a dependency of this package: every other
+   capability works without a B-rep kernel, so declaring it as one would
+   overstate what the package needs and would pull a roughly one-gigabyte
+   back-end into every environment that installs it. It is an optional
+   extra here too — `[project.optional-dependencies] cad` naming the same
+   commit — and only the two CI jobs that need it install it: the coverage
+   job, because the CAD module is covered like every other module, and the
+   `cad` job. A contract test proves the plain dependency and the extra
+   name one commit. The manifest's
    `kernel_library` block records the new source commit, the inventory
    digest at that commit and the consumed kernel identifiers (four CAD
    kernels plus the four geometry kernels; `cad_volume_mesh` and

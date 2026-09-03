@@ -376,7 +376,8 @@ the STEP surface of the consumer contract `docs/DEVICE_3D_MODEL_CONTRACT.md`).
 
 The B-rep, STEP, faceting and body-evidence kernels are the shared
 library's `cad` group (`scpn-reactor-kernels` pinned in the manifest
-`kernel_library` block and in `pyproject.toml` with the `cad` extra);
+`kernel_library` block, and reachable through this package's own optional
+`cad` extra, which names the same commit);
 their evidence (analytic agreement, determinism, deficit bounds, refusals)
 is the library's, at its `VALIDATION.md#cad-kernels`. What this repository
 exercises (`src/scpn_theta_pinch_core/geometry/cad.py`,
