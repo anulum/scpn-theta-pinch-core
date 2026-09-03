@@ -17,6 +17,14 @@ readme = "README.md"
 requires-python = ">=3.12"
 license = "AGPL-3.0-or-later"
 dynamic = ["version"]
+# The shared kernel library is pinned to one immutable commit object: the
+# device geometry consumes its unit circle, tessellation primitives, mesh
+# contract and serialisers instead of copying them. The same commit and the
+# kernel inventory are recorded in reactor-domain.json (kernel_library) and
+# a contract test proves the two pins agree.
+dependencies = [
+    "scpn-reactor-kernels @ git+https://github.com/anulum/scpn-reactor-kernels.git@6f574bfdddadf24c6a4c0a020c0a257fec38231a",
+]
 
 [tool.setuptools.dynamic]
 version = { attr = "scpn_theta_pinch_core.__version__" }
@@ -61,6 +69,7 @@ select = [
 # the benchmark records the commit with a fixed git argument vector resolved
 # through shutil.which, without a shell and without untrusted input
 "benchmarks/level0_physics.py" = ["S603"]
+"benchmarks/device_model_3d.py" = ["S603"]
 
 [tool.ruff.lint.pydocstyle]
 convention = "numpy"
@@ -75,6 +84,7 @@ known-first-party = [
     "generate_capability_inventory",
     "preflight",
     "physics_fixtures",
+    "geometry_fixtures",
 ]
 
 [tool.mypy]

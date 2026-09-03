@@ -21,7 +21,7 @@ owner of device-level truth for the `theta_pinch` configuration of the SCPN
 Phase Orchestrator reactor registry (azimuthal-current pinch).
 
 **Evidence maturity: `computational_prototype`** (per-capability; ADR 0002).
-Three capabilities are implemented: the device configuration model —
+Four capabilities are implemented: the device configuration model —
 validated parameter objects with documented consistency estimates,
 canonical serialisation, and a data-only SPO registry pin
 (evidence: `VALIDATION.md#device-configuration-model`) — and the
@@ -33,8 +33,14 @@ physics — the sharp-boundary relations of the 1973 Scyllac review
 (operating state, `l = 1, 0` toroidal equilibrium, `m = 1` growth estimate
 with wall stabilisation, end-loss scaling) evaluated on the validated
 configuration, with optional native kernels proven bit-exact against the
-Python floor (ADR 0005, evidence: `VALIDATION.md#level-0-device-physics`).
-No parameter set or channel describes any real machine or diagnostic; the claim inventory
+Python floor (ADR 0005, evidence: `VALIDATION.md#level-0-device-physics`);
+and the device 3D model — a validated mechanical envelope of the linear
+theta-pinch layout and seven analytic bodies tessellated into closed
+triangle meshes with binary STL and glTF 2.0 exports, built on the pinned
+shared geometry kernels (ADR 0006 and ADR 0007, evidence:
+`VALIDATION.md#device-3d-model`, consumer contract:
+`docs/DEVICE_3D_MODEL_CONTRACT.md`).
+No parameter set, channel or body describes any real machine or diagnostic; the claim inventory
 is empty and verified by the domain validator.
 
 ## Scope

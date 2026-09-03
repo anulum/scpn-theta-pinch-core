@@ -51,8 +51,19 @@ this repository until it appears in the capability inventory with evidence.
   `computational_prototype` (ADR 0005,
   `VALIDATION.md#level-0-device-physics`). Follow-ups under the same
   capability: adiabatic-compression and implosion-heating relations once
-  a source is on file; the family's 3D model once the shared kernel
-  library can be pinned.
+  a source is on file.
+- **Device 3D model** (landed 2026-09-03) — a validated mechanical
+  envelope of the linear theta-pinch layout (discharge tube, main
+  compression coil, two mirror coils, end flanges) and the seven analytic
+  bodies tessellated into closed, outward-oriented triangle meshes with a
+  canonical model record and binary STL and glTF 2.0 exports, built on the
+  shared geometry kernels pinned by commit object and inventory digest;
+  parity of every body proven bit for bit against the library's native
+  module and a standard-conformant benchmark; `computational_prototype`
+  (ADR 0006 and ADR 0007, `VALIDATION.md#device-3d-model`, consumer
+  contract `docs/DEVICE_3D_MODEL_CONTRACT.md`). Follow-up under the same
+  capability: the tier-G2 B-rep model once the group's CAD kernels are
+  public.
 
 ## Planned (no implementation exists; ordering is not a commitment)
 1. **Safety-envelope declaration** — machine-readable operational envelope

@@ -159,9 +159,51 @@ def test_manifest_declares_exact_configuration_assignment() -> None:
             "evidence_maturity": "computational_prototype",
             "evidence_pointer": "VALIDATION.md#level-0-device-physics",
         },
+        {
+            "identifier": "device_3d_model",
+            "evidence_maturity": "computational_prototype",
+            "evidence_pointer": "VALIDATION.md#device-3d-model",
+        },
     ]
     assert "analytic_device_physics_models" in manifest["owned_domains"]
+    assert "device_geometry_and_3d_model" in manifest["owned_domains"]
+    assert {
+        "domain": "shared_physics_geometry_and_numerics_kernels",
+        "owner": "SCPN-REACTOR-KERNELS",
+    } in manifest["excluded_domains"]
     assert manifest["claims"] == []
+
+
+def test_kernel_library_pin_agrees_with_the_dependency_and_the_package() -> None:
+    """One commit, one version, one inventory digest: manifest, pyproject, package."""
+    import tomllib
+
+    import scpn_reactor_kernels
+
+    manifest = load_json_object(REPO / "reactor-domain.json")
+    pin = manifest["kernel_library"]
+    assert pin["distribution"] == "scpn-reactor-kernels"
+    assert pin["kernels"] == [
+        "geometry_exports",
+        "geometry_mesh_contract",
+        "geometry_primitives",
+        "geometry_unit_circle",
+    ]
+    project = tomllib.loads((REPO / "pyproject.toml").read_text(encoding="utf-8"))
+    dependencies = project["project"]["dependencies"]
+    assert dependencies == [
+        "scpn-reactor-kernels @ git+https://github.com/anulum/"
+        f"scpn-reactor-kernels.git@{pin['source_commit']}"
+    ]
+    assert scpn_reactor_kernels.__version__ == pin["version"]
+    workflows = REPO / ".github" / "workflows"
+    for name in ("reusable-static-policy.yml", "reusable-tests.yml", "pre-commit.yml"):
+        text = (workflows / name).read_text(encoding="utf-8")
+        assert "pip install -e ." in text, name
+    native_step = (workflows / "reusable-tests.yml").read_text(encoding="utf-8")
+    assert f"scpn-reactor-kernels.git@{pin['source_commit']}#subdirectory=rust" in (
+        native_step
+    )
 
 
 def test_descriptor_and_inventory_embed_current_manifest_digest() -> None:
@@ -174,7 +216,7 @@ def test_descriptor_and_inventory_embed_current_manifest_digest() -> None:
     assert descriptor["source"]["manifest_sha256"] == digest
     assert inventory["source"]["manifest_sha256"] == digest
     assert descriptor["lifecycle"]["state"] == "not_federated"
-    assert inventory["implemented_capability_count"] == 3
+    assert inventory["implemented_capability_count"] == 4
 
 
 def test_no_agent_state_trees_exist() -> None:

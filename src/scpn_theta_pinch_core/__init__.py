@@ -14,8 +14,10 @@ Public surface of the ``device_configuration_model``,
 synthetic diagnostic and clock declarations aligned with the pinned SPO
 observability catalogue, documented consistency estimates, the
 sharp-boundary level-0 relations of the Scyllac review evaluated on the
-validated configuration, canonical serialisation with SHA-256 digests, and
-data-only pins to the SPO registries. No claim about any real machine or
+validated configuration, a validated device geometry with a deterministic
+tier-G1 3D model built on the pinned shared kernel library and open-format
+exports, canonical serialisation with SHA-256 digests, and data-only pins
+to the SPO registries. No claim about any real machine or
 diagnostic is made anywhere in this package.
 """
 
@@ -32,7 +34,29 @@ from scpn_theta_pinch_core.configuration import (
     configuration_from_bytes,
     configuration_from_record,
 )
-from scpn_theta_pinch_core.errors import DeviceConfigurationError, DiagnosticPlanError
+from scpn_theta_pinch_core.errors import (
+    DeviceConfigurationError,
+    DeviceGeometryError,
+    DiagnosticPlanError,
+)
+from scpn_theta_pinch_core.geometry import (
+    BODY_NAMES,
+    GEOMETRY_FIELDS,
+    MODEL_NON_CLAIMS,
+    MODEL_SCHEMA,
+    MODEL_SCHEMA_VERSION,
+    MODEL_UNITS,
+    DeviceGeometry,
+    DeviceModel3D,
+    build_device_model,
+    geometry_from_bytes,
+    geometry_from_record,
+    glb_bytes,
+    glb_extras,
+    stl_bytes,
+    write_glb,
+    write_stl,
+)
 from scpn_theta_pinch_core.observability import (
     APPLICABLE_CANDIDATES,
     CATALOGUE_BINDING,
@@ -91,13 +115,19 @@ __version__: Final = "0.1.0.dev0"
 
 __all__ = [
     "APPLICABLE_CANDIDATES",
+    "BODY_NAMES",
     "CATALOGUE_BINDING",
     "DEUTERON_MASS_KG",
     "ELEMENTARY_CHARGE_C",
+    "GEOMETRY_FIELDS",
     "HIGH_BETA_ADVISORY_FLOOR",
     "LEVEL0_NON_CLAIMS",
     "LEVEL0_SCHEMA",
     "LEVEL0_SCHEMA_VERSION",
+    "MODEL_NON_CLAIMS",
+    "MODEL_SCHEMA",
+    "MODEL_SCHEMA_VERSION",
+    "MODEL_UNITS",
     "MU0",
     "OWNED_CONFIGURATIONS",
     "PROTON_MASS_KG",
@@ -111,6 +141,9 @@ __all__ = [
     "DeferredCandidate",
     "DeviceConfiguration",
     "DeviceConfigurationError",
+    "DeviceGeometry",
+    "DeviceGeometryError",
+    "DeviceModel3D",
     "DiagnosticChannelPlan",
     "DiagnosticPlan",
     "DiagnosticPlanError",
@@ -131,18 +164,26 @@ __all__ = [
     "ToroidalEquilibrium",
     "WallStabilisation",
     "__version__",
+    "build_device_model",
     "configuration_from_bytes",
     "configuration_from_record",
     "end_loss_estimate",
     "envelope_for_plan",
     "envelope_from_bytes",
     "envelope_from_record",
+    "geometry_from_bytes",
+    "geometry_from_record",
+    "glb_bytes",
+    "glb_extras",
     "level0_physics",
     "m1_growth_estimate",
     "plan_from_bytes",
     "plan_from_record",
     "sharp_boundary_state",
+    "stl_bytes",
     "toroidal_equilibrium",
     "verify_envelope",
     "wall_stabilisation",
+    "write_glb",
+    "write_stl",
 ]

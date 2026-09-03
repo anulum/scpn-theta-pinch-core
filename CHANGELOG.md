@@ -14,6 +14,34 @@ SCPN Theta Pinch Core — CHANGELOG
 
 ### Added
 
+- Device 3D model (`src/scpn_theta_pinch_core/geometry/`), the fourth
+  implemented capability at `computational_prototype` (ADR 0006 and ADR
+  0007): a validated `DeviceGeometry` of the linear theta-pinch envelope
+  (discharge-tube bore and wall, tube overhang, main-coil wall,
+  mirror-coil length and wall, end-flange thickness — the coil bore and
+  length stay in the configuration), and a `DeviceModel3D` record
+  (`scpn.theta-pinch-3d-model.v1`) composing seven closed,
+  outward-oriented triangle bodies: discharge tube, main compression
+  coil, two mirror coils abutting it, two end flanges and the declared
+  plasma column. The layout follows section VI.A of the Scyllac review
+  already on file; every dimension is synthetic. Binary STL and glTF 2.0
+  binary exports carry the device provenance in the document `extras`.
+  The unit circle, the primitives, the mesh contract and the serialisers
+  are consumed from the shared kernel library `scpn-reactor-kernels`,
+  pinned by commit object and kernel-inventory digest in
+  `pyproject.toml` and in the manifest block `kernel_library` (validated
+  field by field and cross-checked by a contract test); every body is
+  proven bit-exact against the library's native module. The manifest
+  declares the capability, the owned domain
+  `device_geometry_and_3d_model` and the excluded domain
+  `shared_physics_geometry_and_numerics_kernels`; descriptor and
+  inventory regenerated; the envelope fixture regenerated for the new
+  `manifest_sha256` (plan bytes unchanged). A standard-conformant
+  benchmark (`benchmarks/device_model_3d.py`) with a committed local
+  artefact and a `docs/benchmarks.md` section; CI installs the package so
+  the pinned library resolves, and the native job additionally builds the
+  library's native module so the parity file never skips.
+
 - Level-0 device physics (`src/scpn_theta_pinch_core/physics/`), the third
   implemented capability at `computational_prototype` (ADR 0005): the
   sharp-boundary relations of the 1973 Scyllac review — operating state

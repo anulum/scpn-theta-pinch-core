@@ -429,3 +429,36 @@ def test_main_pass_and_fail_exit_codes(
     output = capsys.readouterr().out
     assert "reactor-domain: FAIL" in output
     assert "- license:" in output
+
+
+def test_manifest_without_a_kernel_library_pin_is_valid(tmp_path: Path) -> None:
+    """A repository that consumes no shared kernel omits the block."""
+    manifest = mutated()
+    del manifest["kernel_library"]
+    path = write_manifest_with_evidence(tmp_path, manifest)
+    assert validate_manifest(path, None) == []
+
+
+@pytest.mark.parametrize(
+    ("pin", "fragment"),
+    [
+        ("text", "kernel_library: must be an object"),
+        ({"extra": 1}, "unknown fields ['extra']"),
+        ({"distribution": ""}, "kernel_library.distribution:"),
+        ({"version": 7}, "kernel_library.version:"),
+        ({"source_commit": "6f574bf"}, "kernel_library.source_commit:"),
+        ({"inventory_sha256": "B" * 64}, "kernel_library.inventory_sha256:"),
+        ({"kernels": []}, "kernel_library.kernels: must be a non-empty list"),
+        ({"kernels": ["Geometry"]}, "invalid identifier 'Geometry'"),
+        ({"kernels": ["b", "a"]}, "identifiers must be unique and sorted"),
+        ({"kernels": ["a", "a"]}, "identifiers must be unique and sorted"),
+    ],
+)
+def test_kernel_library_pin_defects(tmp_path: Path, pin: Any, fragment: str) -> None:
+    """Every field of the kernel-library pin is exact and fail-closed."""
+    manifest = mutated()
+    if isinstance(pin, dict):
+        pin = {**manifest["kernel_library"], **pin}
+    manifest["kernel_library"] = pin
+    findings = validate_manifest(write_manifest(tmp_path, manifest), None)
+    assert any(fragment in finding for finding in findings), findings

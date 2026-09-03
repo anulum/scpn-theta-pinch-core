@@ -11,12 +11,13 @@ SCPN Theta Pinch Core — Architecture summary
 # Architecture summary
 
 `SCPN-THETA-PINCH-CORE` is the device-family owner for theta-pinch systems
-inside the SCPN Reactor Systems Research Group. The repository holds three
+inside the SCPN Reactor Systems Research Group. The repository holds four
 implemented capabilities at `computational_prototype` — the device
 configuration model (ADR 0002), the diagnostic and clock semantics model
-(ADR 0003) and the level-0 device physics (ADR 0005; the Scyllac
-sharp-boundary relations with optional native kernels in `rust/`), all in
-`src/scpn_theta_pinch_core/` — alongside the device boundary, its
+(ADR 0003), the level-0 device physics (ADR 0005; the Scyllac
+sharp-boundary relations with optional native kernels in `rust/`) and the
+device 3D model (ADR 0006 and ADR 0007; analytic bodies tessellated on the
+pinned shared geometry kernels), all in `src/scpn_theta_pinch_core/` — alongside the device boundary, its
 ecosystem contracts, and the validation tooling that enforces them.
 
 The authoritative architecture record is

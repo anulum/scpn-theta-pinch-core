@@ -276,3 +276,90 @@ Bounded claims — what is NOT claimed:
   benchmark measures per-point evaluation cost of two implementations of
   the same closed forms, not physics.
 - Maturity stays `computational_prototype`.
+
+## Device 3D model
+
+Evidence record of the `device_3d_model` capability
+(`computational_prototype`; design records: `docs/adr/0006-device-3d-model.md`
+and `docs/adr/0007-shared-geometry-kernels.md`; consumer contract:
+`docs/DEVICE_3D_MODEL_CONTRACT.md`).
+
+The unit circle, the tessellation primitives, the closed-mesh contract and
+the STL/GLB serialisers are consumed from the shared kernel library
+`scpn-reactor-kernels`, pinned in the manifest (`kernel_library`: commit
+object and kernel-inventory digest) and in `pyproject.toml`; their evidence
+(polynomial accuracy against `libm`, exact polygon-prism identities,
+quadratic convergence, closure and orientation, export layouts, native
+parity) is the library's, at its `VALIDATION.md#geometry-kernels`. What
+this repository exercises, all under the coverage gate
+(`src/scpn_theta_pinch_core/geometry/`):
+
+- **Device geometry** (`DeviceGeometry`): seven SI parameters of the linear
+  theta-pinch envelope (discharge-tube bore and wall, tube overhang, main
+  coil wall, mirror-coil length and wall, end-flange thickness) with
+  fail-closed positivity, canonical bytes, SHA-256 digest and a strict
+  parser refusing unknown fields and non-finite literals; every rejection
+  branch is tested. The coil bore radius and the coil length are not
+  repeated here: they are the validated configuration's `coil_radius_m`
+  and `coil_length_m`. The layout is the qualitative arrangement of the
+  linear theta pinch described in section VI.A (pp. 13-14) of the Scyllac
+  review already on file for the level-0 models (W. E. Quinn et al.,
+  LA-UR-73-1053 (1973)): a straight theta pinch whose main compression
+  coil is flanked by mirror coils of their own bank, main and mirror coils
+  sharing one bore, with a discharge tube of smaller bore inside them. No
+  dimension of that machine or any other is used.
+- **Kernel library pin**: the manifest block `kernel_library` is validated
+  field by field (distribution, version, 40-hex source commit, 64-hex
+  inventory digest, sorted unique kernel identifiers, no other field); a
+  contract test proves the manifest, the `pyproject.toml` dependency, the
+  installed library version and the CI install steps name one commit.
+- **Device model** (`DeviceModel3D`, `scpn.theta-pinch-3d-model.v1`
+  `1.0.0`): seven bodies in the fixed order with declared roles and
+  materials; the mirror coils abut the main coil with no gap and no
+  overlap and share its bore; the tube overhangs both mirror coils by the
+  declared extension and each flange caps one tube end; the plasma column
+  lies inside the tube bore over the main coil; convergence of every body
+  volume to its analytic cylinder or tube; refusal of a tube wider than
+  the coil bore, of a column not inside the tube bore, and of a
+  non-positive column radius (the library's segment refusal is re-raised
+  under `DeviceGeometryError`); the fixed body inventory; determinism (two
+  builds equal, digests equal); canonical bytes and one pinned reference
+  digest (segments = 8) as an immutability fixture.
+- **Exports**: the device-side provenance record (`glb_extras`: schema,
+  both source digests, model digest, plasma radius, segment count, units,
+  non-claims) is exactly what the library's GLB carries as document
+  `extras`; the bytes are proven identical to the library serialisers
+  called directly; the binary STL and glTF 2.0 binary layouts are read
+  back with minimal specification-level readers; determinism of the bytes;
+  the file writers.
+- **Native parity**: `tests/test_geometry_native_parity.py` builds the
+  seven device bodies on the library's Python floor and compares float64
+  bit patterns of every vertex coordinate, the face index streams, the
+  signed volume and the surface area against the library's native module
+  (`scpn_reactor_kernels_native`); the consumer inherits the library's
+  parity rather than re-proving the kernels. The crate in `rust/` carries
+  physics only and is unchanged by this capability.
+- **Benchmark**: `benchmarks/device_model_3d.py` per the ecosystem
+  benchmark standard, measuring the library's Python floor (through the
+  validated device build) against the library's native kernels; results in
+  `docs/benchmarks.md` and the committed local artefact
+  `benchmarks/results/device_model_3d.local.json`.
+
+Bounded claims — what is NOT claimed:
+
+- The bodies are analytic surfaces of a synthetic design: no B-rep solid,
+  no equilibrium boundary, no engineering model. The plasma body is the
+  declared column radius of the sharp-boundary models extruded over the
+  main coil, not a computed plasma boundary.
+- The end flanges are plain closing discs of the tube outer diameter; the
+  feed-through hardware of a real assembly is not modelled, and neither
+  are coil slots, feed plates, ports, diagnostics or supports.
+- No material property, load, field, thermal or neutronic quantity is
+  carried; the material tokens are declarations only.
+- The tessellation is exact only as an inscribed polygonal prism: every
+  volume and area is below the analytic value by the declared deficit, and
+  that deficit is measured, not assumed.
+- No value describes, approximates or validates any real machine; the
+  benchmark measures tessellation cost of two implementations of the same
+  kernels, not physics.
+- Maturity stays `computational_prototype`.
