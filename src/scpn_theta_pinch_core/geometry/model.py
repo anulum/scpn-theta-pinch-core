@@ -61,8 +61,10 @@ MODEL_NON_CLAIMS: Final = (
     "no body is an equilibrium boundary, a CAD solid or an engineering model",
     "no material property, load, field or neutronic quantity is carried",
     "the end flanges are closing discs; tube feed-through hardware is not modelled",
-    "a dimension reproduced from a published arrangement is an anchor,"
-    " not a claim about that machine",
+    (
+        "a dimension reproduced from a published arrangement is an anchor,"
+        " not a claim about that machine"
+    ),
 )
 
 ROLE_COIL: Final = "coil"

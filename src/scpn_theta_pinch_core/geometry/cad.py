@@ -87,15 +87,21 @@ from scpn_theta_pinch_core.geometry.model import (
 CAD_MODEL_SCHEMA: Final = "scpn.theta-pinch-cad-model.v1"
 CAD_MODEL_SCHEMA_VERSION: Final = "1.0.0"
 CAD_MODEL_NON_CLAIMS: Final = (
-    "B-rep solids of the same declared design, built by the pinned "
-    "third-party OpenCASCADE kernel and checked against the analytic closed "
-    "forms; not an engineering model",
+    (
+        "B-rep solids of the same declared design, built by the pinned "
+        "third-party OpenCASCADE kernel and checked against the analytic closed "
+        "forms; not an engineering model"
+    ),
     "no material property, load, field or neutronic quantity is carried",
     "the end flanges are closing discs; tube feed-through hardware is not modelled",
-    "STEP bytes are deterministic only within one pinned back-end "
-    "environment; identity across OpenCASCADE or gmsh versions is not claimed",
-    "a dimension reproduced from a published arrangement is an anchor,"
-    " not a claim about that machine",
+    (
+        "STEP bytes are deterministic only within one pinned back-end "
+        "environment; identity across OpenCASCADE or gmsh versions is not claimed"
+    ),
+    (
+        "a dimension reproduced from a published arrangement is an anchor,"
+        " not a claim about that machine"
+    ),
 )
 
 #: Reference segment count of the tier-G1 mesh the faceted B-rep is

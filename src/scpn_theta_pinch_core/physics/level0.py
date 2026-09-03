@@ -53,12 +53,16 @@ from scpn_theta_pinch_core.physics.toroidal_equilibrium import (
 LEVEL0_SCHEMA: Final = "scpn.theta-pinch-level0-physics.v1"
 LEVEL0_SCHEMA_VERSION: Final = "1.0.0"
 LEVEL0_NON_CLAIMS: Final = (
-    "closed-form evaluation of the sharp-boundary relations of a 1973 review "
-    "on a synthetic configuration",
+    (
+        "closed-form evaluation of the sharp-boundary relations of a 1973 review "
+        "on a synthetic configuration"
+    ),
     "no equilibrium, stability, compression or transport equation is solved",
     "no yield, gain, reactivity, confinement or breakeven statement",
-    "no value describes or validates any real machine; the anchors reproduce "
-    "numbers printed in the source",
+    (
+        "no value describes or validates any real machine; the anchors reproduce "
+        "numbers printed in the source"
+    ),
 )
 
 

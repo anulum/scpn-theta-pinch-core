@@ -201,12 +201,16 @@ def test_kernel_library_pin_agrees_with_the_dependency_and_the_package() -> None
     project = tomllib.loads((REPO / "pyproject.toml").read_text(encoding="utf-8"))
     dependencies = project["project"]["dependencies"]
     assert dependencies == [
-        "scpn-reactor-kernels @ git+https://github.com/anulum/"
-        f"scpn-reactor-kernels.git@{pin['source_commit']}"
+        (
+            "scpn-reactor-kernels @ git+https://github.com/anulum/"
+            f"scpn-reactor-kernels.git@{pin['source_commit']}"
+        )
     ]
     assert project["project"]["optional-dependencies"]["cad"] == [
-        "scpn-reactor-kernels[cad] @ git+https://github.com/anulum/"
-        f"scpn-reactor-kernels.git@{pin['source_commit']}"
+        (
+            "scpn-reactor-kernels[cad] @ git+https://github.com/anulum/"
+            f"scpn-reactor-kernels.git@{pin['source_commit']}"
+        )
     ]
     assert scpn_reactor_kernels.__version__ == pin["version"]
     workflows = REPO / ".github" / "workflows"
