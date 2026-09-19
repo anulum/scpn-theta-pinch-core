@@ -42,7 +42,7 @@ from scpn_theta_pinch_core.geometry import (
 from scpn_theta_pinch_core.parameters import CompressionCoil
 
 REFERENCE_MODEL_SHA256 = (
-    "480b7e10a9096802ea00234002a7cc3ad498b1566a7ca0b130b761c92182a36d"
+    "18faaa3a222665a63cd5bbb16678973a85966928c14728cc4618bbbb81a67330"
 )
 
 

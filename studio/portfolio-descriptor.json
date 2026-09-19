@@ -43,7 +43,7 @@
   "device_family": "theta_pinch",
   "evidence_maturity": "computational_prototype",
   "lifecycle": {
-    "evidence_pointer": null,
+    "evidence_pointer": "VALIDATION.md",
     "reason": "federation gates have not run; capabilities remain repository-local",
     "state": "not_federated"
   },
@@ -71,7 +71,7 @@
     "manifest_path": "reactor-domain.json",
     "manifest_schema": "scpn.reactor-domain.v1",
     "manifest_schema_version": "1.0.0",
-    "manifest_sha256": "c60b7e830c8cddd338a99891063607113ae0c177816302324b2945bf034cff87",
+    "manifest_sha256": "c6ffb8f72ba61ceecc8467c19f1367d2abbd2a2b7ccd28f4ed78bed234208887",
     "repository": "SCPN-THETA-PINCH-CORE"
   },
   "spo_registry": {

@@ -75,3 +75,9 @@ def test_sha256_of_file_matches_hashlib(tmp_path: Path) -> None:
     path = tmp_path / "payload.bin"
     path.write_bytes(b"tokamak")
     assert sha256_of_file(path) == hashlib.sha256(b"tokamak").hexdigest()
+
+
+def test_committed_manifest_uses_canonical_source_bytes() -> None:
+    """SPO receives the committed manifest without receiver-side normalisation."""
+    manifest = Path(__file__).parents[1] / "reactor-domain.json"
+    assert manifest.read_bytes() == canonical_json_bytes(load_json_object(manifest))

@@ -448,3 +448,23 @@ Bounded claims — what is NOT claimed:
   that. The benchmark measures build, export and faceting cost, not
   physics.
 - Maturity stays `computational_prototype`.
+
+## Shared geometry kernel adoption
+
+Python, the optional CAD extra and the native CI build use kernel commit
+`c83745c6011d9b0ea6c413cf0b7d607c724090e7` (`2.0.0.dev0`). The manifest
+records the SHA-256 of that commit's kernel inventory bytes. The library
+rejects malformed mesh rows and indices, non-finite CAD evidence, exports
+that lose facet area in float32, and caller-preinitialised Gmsh sessions.
+This consumer does not invoke the Gmsh volume-meshing capability.
+
+The reference mesh and CAD record digests change because the repaired
+signed-volume summation changes their embedded volume measurements. The
+body geometry, vertex/face data, physical equations and parameter fixtures
+are unchanged. The dedicated geometry tests retain analytic volume bounds,
+STEP round-trip checks, export parsing and bit-exact native parity.
+
+The diagnostic fixture binds the new canonical manifest bytes; its producer
+revision and inner plan are preserved. The Studio lifecycle evidence pointer
+resolves to this file. These are design-only records: no observation,
+scientific validation, federation or control authority is added.

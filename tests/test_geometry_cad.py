@@ -64,7 +64,7 @@ from scpn_theta_pinch_core.geometry import (
 #: environment (cadquery 2.8.0, OCP 7.9.3.1); a back-end bump re-pins it
 #: as a governed data change (ADR 0008).
 REFERENCE_CAD_MODEL_SHA256 = (
-    "60c4b9fa8fb6db01c6824bf783518368ae6d88f55b7111a3aef2f7abe4016eb3"
+    "e12e4f41fc7ca2fcbafa6770ecfc39d61704505f805b4185a5e2dab175c92e9e"
 )
 
 
