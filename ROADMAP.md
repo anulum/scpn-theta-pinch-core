@@ -5,96 +5,14 @@ Commercial license available
 © Code 2020–2026 Miroslav Šotek. All rights reserved.
 ORCID: 0009-0009-3560-0851
 Contact: www.anulum.li | protoscience@anulum.li
-SCPN Theta Pinch Core — ROADMAP
+SCPN THETA PINCH CORE — research milestones
 -->
 
 # Roadmap
 
-Planned work and implemented capability are kept strictly separate. Anything
-listed under "Planned" carries no implementation, no code, and no claim in
-this repository until it appears in the capability inventory with evidence.
+Planned milestones; completion depends on published evidence and validation.
 
-## Implemented (repository infrastructure, not reactor capability)
-
-- Domain manifest (`reactor-domain.json`) with validator.
-- Derived Studio portfolio descriptor (`not_federated`) with drift check.
-- Generated capability inventory (truthfully empty) with drift check.
-- CONTROL adapter specification (contract only, no implementation).
-- Local and workflow gate definitions (lint, typing, tests, coverage,
-  REUSE, security audit, SBOM, documentation checks).
-
-- **Device configuration model** (landed 2026-08-31) — validated
-  compression-coil and plasma objects for `theta_pinch` with the hard
-  pressure-balance invariant (beta <= 1), the magnetic-pressure
-  relation `B^2 / (2 mu0)`, a high-beta regime advisory (Ribe 1975),
-  canonical digests, and the SPO registry data pin;
-  `computational_prototype` (ADR 0002,
-  `VALIDATION.md#device-configuration-model`). Preionisation classes
-  and field-rise envelopes remain future work under the same
-  capability.
-- **Diagnostic and clock semantics** (landed 2026-08-31) — synthetic
-  diagnostic-channel and clock declarations aligned fail-closed with the
-  pinned SPO observability-profile catalogue (release `1.0.0`): candidate
-  applicability, carrier admissibility, exact evidence vocabularies,
-  clock-kind compatibility, Nyquist and event-timing bounds, canonical
-  digests; the reference plan mirrors canonical practice
-  (bank waveform event train, rotational-mode probe array, synthetic oscillator); `computational_prototype` (ADR 0003,
-  `VALIDATION.md#diagnostic-and-clock-semantics`). No ingress is
-  declared; the SPO semantic-profile state remains `not_declared`.
-- **Level-0 device physics** (landed 2026-09-02) — the sharp-boundary
-  relations of the 1973 Scyllac review evaluated on the validated
-  configuration: operating state (beta, ion temperature, Alfvén speed,
-  end propagation time), `l = 1, 0` toroidal equilibrium, `m = 1` growth
-  estimate with wall stabilisation, empirical end-loss scaling; a
-  canonical `Level0PhysicsRecord`, optional native kernels bit-exact with
-  the Python floor, and a standard-conformant benchmark;
-  `computational_prototype` (ADR 0005,
-  `VALIDATION.md#level-0-device-physics`). Follow-ups under the same
-  capability: adiabatic-compression and implosion-heating relations once
-  a source is on file.
-- **Device 3D model** (landed 2026-09-03) — a validated mechanical
-  envelope of the linear theta-pinch layout (discharge tube, main
-  compression coil, two mirror coils, end flanges) and the seven analytic
-  bodies tessellated into closed, outward-oriented triangle meshes with a
-  canonical model record and binary STL and glTF 2.0 exports, built on the
-  shared geometry kernels pinned by commit object and inventory digest;
-  parity of every body proven bit for bit against the library's native
-  module and a standard-conformant benchmark; `computational_prototype`
-  (ADR 0006 and ADR 0007, `VALIDATION.md#device-3d-model`, consumer
-  contract `docs/DEVICE_3D_MODEL_CONTRACT.md`).
-
-- **Device CAD model** (landed 2026-09-03) — the same seven bodies as
-  exact B-rep solids of revolution built by the pinned third-party
-  OpenCASCADE kernel through the shared library's CAD group, with a
-  canonical record, a normalised deterministic STEP export and per-body
-  fail-closed evidence: the kernel's volume and area against the analytic
-  closed forms within `1e-9`, the faceted volume within the declared chord
-  deficit bound, and the faceted volume against the tier-G1 mesh within
-  the exact polygon deficit bound. The anchor fixture is exercised at this
-  tier too, so every dimension the filed source prints is proven to appear
-  in the solids. No bit-exact parity by design (third-party kernel);
-  `computational_prototype` (ADR 0008, `VALIDATION.md#device-cad-model`,
-  consumer contract `docs/DEVICE_3D_MODEL_CONTRACT.md`).
-
-## Planned (no implementation exists; ordering is not a commitment)
-1. **Safety-envelope declaration** — machine-readable operational envelope
-   (bank, coil stress, repetition bounds) consumed by the CONTROL adapter
-   contract.
-2. **CONTROL adapter implementation** — device-owned adapter against the
-   published specification, with replay fixtures and HIL evidence,
-   targeting `control_research_ready` only after replay and HIL
-   acceptance.
-3. **Solver seam consumption** — versioned consumption of exact
-   `SCPN-FUSION-CORE` seams for implosion and compression surfaces,
-   strictly after the family migration gate proves exact replacement; no
-   solver code is copied.
-4. **Facility-data correlation** — preregistered acceptance contracts
-   against identified facility or published experimental data, targeting
-   `experiment_correlated` per capability.
-
-## Not planned in this repository
-
-Axial-current Z-pinches, the dense plasma focus, FRC physics, closed-field
-and open-field magnetic systems, inertial and magneto-inertial systems,
-generic controller mathematics, machine-protection logic, and any direct
-actuation path.
+1. Establish reference cases and source support for magnetic compression and loss studies.
+2. Validated transient behaviour and device designs.
+3. Independently assess prediction accuracy and uncertainty against held-out reference cases.
+4. Provide reproducible design studies, understandable results and documented integration.
