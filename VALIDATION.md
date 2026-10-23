@@ -17,6 +17,7 @@ followed by the evidence record of each implemented capability.
 
 | Gate | Command | Scope |
 |---|---|---|
+| Preparation | `make venv` | pinned validation tools and the package with its CAD extra, matching the complete CI test cohort |
 | Lint | `ruff check .` | all Python under `src/`, `tools/`, `tests/` and `benchmarks/` |
 | Format | `ruff format --check .` | same scope |
 | Typing | `mypy --strict src tools tests benchmarks` | zero errors, strict mode |
@@ -27,9 +28,9 @@ followed by the evidence record of each implemented capability.
 | Licensing | `reuse lint` | REUSE 3.x compliance of the full tree |
 | Workflow lint | `actionlint` | all files under `.github/workflows/` |
 | Workflow modularity | `python3 tools/audit_workflows.py` | distributed workflow inventory: single ownership per job, coordinator/gate contract, action pinning, size ceilings |
-| Native kernels | `make rust` (`cargo fmt --check`, `cargo clippy --all-targets --features python -- -D warnings`, `cargo test` in `rust/`) | formatting, lints with warnings denied, kernel unit tests |
+| Native kernels | `make rust` (`cargo fmt --check`, `cargo clippy --all-targets --features python -- -D warnings`, `cargo doc --no-deps --features python`, `cargo test` in `rust/`) | formatting, lints with warnings denied, native API documentation, kernel unit tests |
 | Native parity | `pytest -q tests/test_physics_native_parity.py` | bit-exact float64 agreement of every native kernel with the Python floor (skipped hermetically when the optional native module is absent) |
-| Documentation | `python3 tools/preflight.py --only docs` | UTF-8 readability and relative-link integrity of every Markdown file |
+| Documentation | `python3 tools/preflight.py --only docs` | UTF-8 readability and link-target integrity of every Markdown file, including angle-enclosed paths with spaces and parentheses |
 | Orchestrated | `python3 tools/preflight.py` | fail-closed run of all gates above |
 
 ## Workflow gates
@@ -56,19 +57,6 @@ verifies locally and in hosted CI.
 | `docs.yml` | strict documentation and link validation, no deployment |
 | `sbom.yml` | reproducible dependency inventory, no release |
 | `scorecard.yml` | read-only supply-chain analysis |
-
-## Shared ecosystem gate
-
-From the monorepo root:
-
-```bash
-python3 agentic-shared/scripts/repository_tier0_scaffold_audit.py \
-  03_CODE/SCPN-THETA-PINCH-CORE --json
-```
-
-proves the Tier-0 local-scaffold machine profile (required and forbidden
-paths, Git/remote boundary, workflow pins and permissions, badge non-claims,
-JSON integrity, defensive ignore rules).
 
 ## Device configuration model
 

@@ -21,7 +21,7 @@ owner of device-level truth for the `theta_pinch` configuration of the SCPN
 Phase Orchestrator reactor registry (azimuthal-current pinch).
 
 **Evidence maturity: `computational_prototype`** (per-capability; ADR 0002).
-Four capabilities are implemented: the device configuration model —
+Five capabilities are implemented: the device configuration model —
 validated parameter objects with documented consistency estimates,
 canonical serialisation, and a data-only SPO registry pin
 (evidence: `VALIDATION.md#device-configuration-model`) — and the
@@ -119,13 +119,19 @@ Every gate currently active in this repository is listed in
 [`VALIDATION.md`](VALIDATION.md). The local sequence is:
 
 ```bash
+make venv        # pinned tools and the package's CAD validation extra
 make lint        # ruff check + ruff format --check
 make typecheck   # mypy --strict src tools tests benchmarks
-make test        # pytest with 100 % statement and branch coverage
+make test        # 100 % statement and branch coverage of src and tools
 make validate    # domain manifest, descriptor, and inventory checks
-make rust        # native crate: fmt, clippy (warnings denied), tests
+make rust        # native crate: fmt, clippy, rustdoc, tests
 make preflight   # the full fail-closed gate sequence
 ```
+
+`make venv` prepares the complete Python validation environment, including
+the optional CAD extra exercised by the test cohort. CAD remains optional
+for consumers of the package. The Make targets, preflight and CI retain
+the same source and tooling coverage scope and four-root strict typing.
 
 ## Security
 

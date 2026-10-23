@@ -89,6 +89,32 @@ def test_check_docs_reports_broken_relative_link(tmp_path: Path) -> None:
     assert "broken relative link" in findings[0]
 
 
+@pytest.mark.parametrize("absolute", [False, True])
+def test_docs_cli_checks_angle_enclosed_destinations(
+    tmp_path: Path, capsys: pytest.CaptureFixture[str], *, absolute: bool
+) -> None:
+    """Accept existing paths with spaces and parentheses, then refuse their loss."""
+    root = tmp_path / "repository"
+    root.mkdir()
+    reference = tmp_path / "reference notes (verified).md"
+    reference.write_text("# Reference\n", encoding="utf-8")
+    target = str(reference) if absolute else "../reference notes (verified).md"
+    (root / "README.md").write_text(
+        f"[reference](<{target}#reference>) "
+        "[external](<https://example.org/guide>) "
+        "[mail](<mailto:maintainer@example.org>) [anchor](<#top>)\n",
+        encoding="utf-8",
+    )
+    arguments = ["--root", str(root), "--only", "docs"]
+    assert main(arguments) == 0
+    assert "preflight: PASS gates=1" in capsys.readouterr().out
+    reference.unlink()
+    assert main(arguments) == 1
+    output = capsys.readouterr().out
+    assert "preflight: FAIL gates_failed=1" in output
+    assert f"broken relative link {target + '#reference'!r}" in output
+
+
 def test_check_docs_reports_unreadable_file(tmp_path: Path) -> None:
     """A Markdown file that is not UTF-8 is a finding."""
     (tmp_path / "README.md").write_bytes(b"\xff\xfe broken")
@@ -149,10 +175,9 @@ def test_monorepo_map_path_finds_the_map_in_an_ancestor(tmp_path: Path) -> None:
     assert monorepo_map_path(repository) == map_file
 
 
-def test_monorepo_map_path_is_none_in_a_standalone_checkout(tmp_path: Path) -> None:
-    """A checkout with no ancestor map reports absence rather than guessing."""
-    repository = tmp_path / "standalone" / "REPO"
-    repository.mkdir(parents=True)
+def test_monorepo_map_path_is_none_at_the_filesystem_root() -> None:
+    """A filesystem root has no ancestor from which to discover a map."""
+    repository = Path(REPO.anchor)
     assert monorepo_map_path(repository) is None
 
 
@@ -172,10 +197,9 @@ def test_gate_plan_carries_map_flag_when_an_ancestor_map_exists(
     assert str(map_file) in command
 
 
-def test_gate_plan_omits_map_flag_in_a_standalone_checkout(tmp_path: Path) -> None:
-    """Without a reachable map the validator gate carries no ``--map``."""
-    repository = tmp_path / "standalone" / "REPO"
-    repository.mkdir(parents=True)
+def test_gate_plan_omits_map_flag_without_any_ancestor() -> None:
+    """At a real filesystem root the validator gate carries no ``--map``."""
+    repository = Path(REPO.anchor)
     command = dict(build_gate_plan(repository))["reactor-domain"]
     assert command is not None
     assert "--map" not in command

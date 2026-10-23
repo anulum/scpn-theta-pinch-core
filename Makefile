@@ -14,7 +14,7 @@ PYTHON := $(VENV)/python
 venv:
 	python3 -m venv .venv
 	$(VENV)/pip install --require-virtualenv -r requirements-dev.txt
-	$(VENV)/pip install --require-virtualenv -e .
+	$(VENV)/pip install --require-virtualenv -e ".[cad]"
 
 lint:
 	$(VENV)/ruff check .
@@ -24,7 +24,7 @@ typecheck:
 	$(VENV)/mypy --strict src tools tests benchmarks
 
 test:
-	$(VENV)/pytest -q --cov=tools --cov-branch --cov-fail-under=100
+	$(VENV)/pytest -q --cov=src --cov=tools --cov-branch --cov-fail-under=100
 
 validate:
 	$(PYTHON) tools/validate_reactor_domain.py reactor-domain.json

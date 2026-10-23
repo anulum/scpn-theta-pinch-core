@@ -44,9 +44,14 @@ Contributions are coordinated directly with the owner
 ## Workflow
 
 ```bash
-python3 -m venv .venv && .venv/bin/pip install -r requirements-dev.txt
+make venv
 make lint typecheck test validate   # or: make preflight
 ```
+
+The validation environment includes the optional CAD extra, matching the
+complete CI test cohort. Coverage includes both `src/` and `tools/` at
+100 % statements and branches; strict typing includes `src/`, `tools/`,
+`tests/` and `benchmarks/`.
 
 All gates in `VALIDATION.md` must pass before a commit is proposed. Commits
 are atomic, descriptive, and staged by explicit pathspec. History is never
