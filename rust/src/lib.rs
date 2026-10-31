@@ -21,7 +21,9 @@ pub mod end_loss;
 pub mod stability;
 pub mod toroidal_equilibrium;
 
-/// Vacuum permeability `mu0 = 4e-7 pi`, evaluated as the Python floor does.
+/// Vacuum permeability `mu0 = 4e-7 pi`, evaluated as the Python floor does:
+/// the pre-2019 SI convention used by the cited literature; since the 2019 SI
+/// revision it is measured (CODATA 2018 is about 5.4e-10 relative above it).
 pub const MU0: f64 = 4.0e-7 * std::f64::consts::PI;
 /// Elementary charge in coulombs (exact SI 2019 value).
 pub const ELEMENTARY_CHARGE_C: f64 = 1.602_176_634e-19;

@@ -32,8 +32,21 @@ from scpn_theta_pinch_core.errors import DeviceConfigurationError
 from scpn_theta_pinch_core.parameters import MU0, require_positive
 
 ELEMENTARY_CHARGE_C: Final = 1.602176634e-19
+"""Elementary charge in coulombs, exact by the 2019 SI definition."""
 PROTON_MASS_KG: Final = 1.67262192369e-27
+"""Proton mass in kilograms, the CODATA 2018 recommended value.
+
+CODATA 2022 gives ``1.67262192595 x 10^-27``, about ``1.4 x 10^-9`` relative
+higher; the Alfven speed and the times scaled by it move by half that
+relative amount.
+"""
 DEUTERON_MASS_KG: Final = 3.3435837724e-27
+"""Deuteron mass in kilograms, the CODATA 2018 recommended value.
+
+CODATA 2022 gives ``3.3435837768 x 10^-27``, about ``1.3 x 10^-9`` relative
+higher; the Alfven speed and the times scaled by it move by half that
+relative amount.
+"""
 
 
 def require_sharp_boundary_beta(beta: float) -> float:

@@ -45,6 +45,12 @@ SCPN Theta Pinch Core — CHANGELOG
 
 ### Changed
 
+- `MU0` documents its convention: the pre-2019 SI value `4 pi x 10^-7` H/m
+  used by the cited theta-pinch literature, about `5.4 x 10^-10` relative
+  below CODATA 2018 and `1.3 x 10^-10` above CODATA 2022, in Python and in the
+  native crate. The proton and deuteron masses name their edition, CODATA
+  2018, and the offset to CODATA 2022; the elementary charge is the exact SI
+  value. No value changes; tests bind each convention.
 - `scpn_theta_pinch_core.observability` is now a package with one module per
   responsibility — vocabulary, catalogue binding, frames, clocks, signals and
   channels, plan composition, record parsing — behind the unchanged public

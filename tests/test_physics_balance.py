@@ -91,3 +91,14 @@ def test_invalid_density_is_refused() -> None:
     """Ion density must be strictly positive."""
     with pytest.raises(DeviceConfigurationError, match="ion_density_per_m3"):
         sharp_boundary_state(configuration(), DEUTERON_MASS_KG, 0.0)
+
+
+def test_constants_are_the_documented_editions() -> None:
+    """The charge is exact SI; both masses are CODATA 2018 with stated offsets."""
+    assert ELEMENTARY_CHARGE_C == 1.602176634e-19
+    assert PROTON_MASS_KG == 1.67262192369e-27
+    assert DEUTERON_MASS_KG == 3.3435837724e-27
+    proton = (1.67262192595e-27 - PROTON_MASS_KG) / 1.67262192595e-27
+    deuteron = (3.3435837768e-27 - DEUTERON_MASS_KG) / 3.3435837768e-27
+    assert 1.3e-9 < proton < 1.4e-9
+    assert 1.3e-9 < deuteron < 1.35e-9
