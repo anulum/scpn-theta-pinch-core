@@ -371,9 +371,9 @@ class DiagnosticPlan:
                         message=(
                             "declared instability band "
                             f"{channel.max_signal_frequency_hz:.1f} "
-                            "Hz is outside the rotational and "
-                            "wobble instability scale 0.1-10 MHz "
-                            "(Ribe 1975)"
+                            "Hz is outside the declared rotational/wobble "
+                            "design band 0.1-10 MHz (synthetic; not "
+                            "checked against a source on file)"
                         ),
                     )
                 )
@@ -387,9 +387,9 @@ class DiagnosticPlan:
                         field=f"channels[{channel.identifier}].timing_uncertainty_s",
                         message=(
                             f"timing uncertainty {channel.timing_uncertainty_s:.2e} s"
-                            " is coarser than the microsecond "
-                            "fast-bank current-rise timescale "
-                            "(Ribe 1975)"
+                            " is coarser than the declared 100 ns "
+                            "bank-timing design bound (synthetic; not "
+                            "checked against a source on file)"
                         ),
                     )
                 )
@@ -400,8 +400,8 @@ class DiagnosticPlan:
                         message=(
                             "acquisition window "
                             f"{channel.acquisition_duration_s:.2e} s is "
-                            "longer than the theta-pinch discharge scale of up "
-                            "to ~1 ms (Ribe 1975)"
+                            "longer than the declared ~1 ms discharge-duration "
+                            "bound (synthetic; not checked against a source on file)"
                         ),
                     )
                 )

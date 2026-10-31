@@ -108,8 +108,12 @@ What is exercised, all under the 100 % statement-and-branch coverage gate:
   release is rejected.
 - A reference plan mirroring canonical practice with synthetic
   declarations: bank waveform event train, rotational-mode probe array, synthetic oscillator, each bound to its clock domain.
-- Documented advisory band and timing checks with their sources stated
-  in the code: rotational/wobble instability bands of 0.1–10 MHz and microsecond bank timing (Ribe 1975); findings are reported, never clamped.
+- Advisory checks against declared synthetic design bounds: a
+  rotational/wobble instability band of 0.1–10 MHz, a 100 ns bank-timing
+  bound and a ~1 ms discharge-duration bound. They were earlier credited to
+  F. L. Ribe, Rev. Mod. Phys. 47 (1975) 7, which is not on file, so they
+  were never checked against it; the attribution was removed (2026-10-31).
+  Findings are reported, never clamped.
 - Canonical serialisation (sorted keys, NaN/infinity rejected on both
   emit and parse), SHA-256 digest identity, and a strict round-trip
   parser that refuses unknown fields.

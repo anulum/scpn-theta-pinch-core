@@ -49,7 +49,11 @@ bind. Three candidates apply to the configuration this repository owns: `self_ma
 4. Timing is fail-closed where physics fixes the bound: the Nyquist
    criterion for cyclic channels, a positive event-timing bound, and
    clock resolution at or below that bound. The device-typical checks
-   are advisory only: the rotational and wobble instability scale 0.1–10 MHz and the microsecond fast-bank current-rise timescale (F. L. Ribe, Rev. Mod. Phys. 47 (1975) 7).
+   are advisory only and compare against declared synthetic design bounds: a
+   rotational/wobble instability band of 0.1–10 MHz, a 100 ns bank-timing
+   bound and a ~1 ms discharge-duration bound. An earlier version credited
+   them to F. L. Ribe, Rev. Mod. Phys. 47 (1975) 7, which is not on file, so
+   they were never checked against it (attribution removed 2026-10-31).
 5. The reference plan mirrors canonical practice with synthetic
    declarations: a capacitor-bank waveform event train (event relative against the bank-trigger epoch), a rotational-mode probe array (derived cyclic against the facility clock), and the model-owned synthetic oscillator (simulation clock). Every applicable candidate must be
    planned or explicitly deferred with a reason; every channel is
