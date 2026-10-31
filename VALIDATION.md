@@ -71,9 +71,11 @@ What is exercised, all under the 100 % statement-and-branch coverage gate:
   extents, and a declared beta above one (radial pressure balance is a
   hard invariant) — every rejection branch is tested.
 - The magnetic-pressure relation `p_B = B^2 / (2 mu0)` as a documented
-  derived quantity, with an advisory finding for beta below one half
-  (theta pinches characteristically operate at high beta; Ribe, Rev.
-  Mod. Phys. 47 (1975) 7), reported and never clamped.
+  derived quantity, with an advisory finding for beta below a declared
+  floor of one half (theta pinches run at high beta: the filed Scyllac
+  review, Quinn et al. 1973, PDF p. 9, Fig. 6, shows measured on-axis
+  beta reaching about 0.7 to 0.8; the Ribe 1975 credit, not on file, was
+  removed on 2026-10-31), reported and never clamped.
 - Canonical serialisation (sorted keys, NaN/infinity rejected on both
   emit and parse), SHA-256 digest identity, and a strict round-trip
   parser that refuses unknown fields.

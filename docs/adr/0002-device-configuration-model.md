@@ -39,9 +39,12 @@ family pilot.
    theta pinch admits no confined state above unity beta.
 4. Derived quantity: the magnetic pressure ``B^2 / (2 mu0)`` (standard
    magnetostatics). Advisory finding, reported by
-   `consistency_report()` and never clamped: a beta below one half —
-   theta pinches characteristically operate in the high-beta regime
-   (F. L. Ribe, Rev. Mod. Phys. 47 (1975) 7).
+   `consistency_report()` and never clamped: a beta below a declared
+   floor of one half. Theta pinches run at high beta: the filed Scyllac
+   review (Quinn et al., LA-UR-73-1053 (1973), PDF p. 9, Fig. 6) shows
+   measured on-axis beta reaching about 0.7 to 0.8. The floor is a
+   modelling choice. An earlier credit to F. L. Ribe, Rev. Mod. Phys. 47
+   (1975) 7, which is not on file, was removed on 2026-10-31.
 5. Repository-level `evidence_maturity` = the highest state claimed by
    any capability entry; per-capability states are the authoritative
    claim surface.

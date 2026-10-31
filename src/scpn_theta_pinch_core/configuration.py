@@ -11,8 +11,12 @@
 A :class:`DeviceConfiguration` composes a validated compression coil and
 plasma state under the single registry identifier this repository owns.
 Radial pressure balance is a hard invariant (``beta <= 1``); a beta
-below the characteristic high-beta regime of theta pinches is flagged
-(F. L. Ribe, Rev. Mod. Phys. 47 (1975) 7). Serialisation is canonical
+below a declared high-beta floor of one half is flagged. Theta pinches
+run at high beta: the filed Scyllac review (W. E. Quinn et al.,
+LA-UR-73-1053 (1973), PDF p. 9, Fig. 6) shows measured on-axis beta
+reaching about 0.7 to 0.8 in its 5 m and 8 m toroidal sectors. The
+floor itself is a modelling
+choice, not a printed value. Serialisation is canonical
 (sorted keys, no NaN or infinity accepted anywhere) and the SHA-256
 digest of those bytes identifies the exact parameter set. The registry
 binding is a data pin only — this package never imports SCPN Phase
@@ -167,8 +171,8 @@ class DeviceConfiguration:
                 ConsistencyFinding(
                     field="plasma.plasma_pressure_pa",
                     message=(
-                        f"beta {beta:.3f} is below the characteristic "
-                        f"high-beta regime floor "
+                        f"beta {beta:.3f} is below the declared "
+                        f"high-beta floor "
                         f"{HIGH_BETA_ADVISORY_FLOOR:.1f} of theta pinches"
                     ),
                 )
