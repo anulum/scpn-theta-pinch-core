@@ -231,10 +231,12 @@ What is exercised, all under the 100 % statement-and-branch coverage gate
   1.0 MHz (the source does not print every input of its own calculation,
   so no tighter statement is made); the growth rate is exactly zero at the
   wall-stabilisation boundary.
-- **End-loss scaling** (`end_loss.py`; p. 16 and Table I): `tau ∝ L /
+- **End-loss scaling** (`end_loss.py`; p. 15 and Table I on p. 16): `tau ∝ L /
   T_i^(1/2)` normalised to the linear Scyllac point (5 m, 2.7 keV,
   11.5 μs); the Table I rows for Scylla IV-1 (2.13 μs) and Scylla IV-3
-  (9.67 μs) are reproduced within 1 % (the table's own rounding); the
+  (9.67 μs) are reproduced within 1 %, the spread that two-figure rounding of
+  the printed temperatures allows (a reference of 2.75 keV instead of 2.7 keV
+  gives 2.13 μs for Scylla IV-1); the
   scaling exponents are exact.
 - A composed `Level0PhysicsRecord` (`scpn.theta-pinch-level0-physics.v1`
   `1.0.0`) with canonical bytes, SHA-256 digest and fixed non-claims, built

@@ -45,6 +45,10 @@ SCPN Theta Pinch Core — CHANGELOG
 
 ### Changed
 
+- The end-loss scaling cites the page that states it (p. 15 of the Scyllac
+  review; Table I is on p. 16), and the evidence record says why the Table I
+  rows agree only within 1 %: two-figure rounding of the printed
+  temperatures. No value changes.
 - `MU0` documents its convention: the pre-2019 SI value `4 pi x 10^-7` H/m
   used by the cited theta-pinch literature, about `5.4 x 10^-10` relative
   below CODATA 2018 and `1.3 x 10^-10` above CODATA 2022, in Python and in the

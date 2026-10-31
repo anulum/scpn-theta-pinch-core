@@ -8,7 +8,7 @@
 
 """Empirical end-loss scaling of linear theta pinches.
 
-W. E. Quinn et al., LA-UR-73-1053 (1973), p. 16 and Table I: the observed
+W. E. Quinn et al., LA-UR-73-1053 (1973), p. 15 and Table I on p. 16: the observed
 end-loss times of Scylla IV-1, Scylla IV-3 and the linear Scyllac scale as
 ``tau ∝ L / T_i^(1/2)`` with the coil length ``L`` and the ion temperature
 ``T_i``, normalised to the linear Scyllac point (``L = 5 m``,

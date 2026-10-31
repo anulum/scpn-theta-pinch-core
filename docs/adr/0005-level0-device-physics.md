@@ -42,7 +42,7 @@ experiments (W. E. Quinn et al., LA-UR-73-1053, OSTI 4460392).
    source's unit system never enters), the `m = 1` growth estimate with
    the wall-stabilisation condition (eqs. 4, 6 and the condition derived
    from eq. 6), and the empirical end-loss scaling `tau ∝ L / T_i^(1/2)`
-   normalised to the linear Scyllac point (p. 16, Table I). A composed
+   normalised to the linear Scyllac point (p. 15, Table I on p. 16). A composed
    `Level0PhysicsRecord` serialises canonically with a SHA-256 digest and
    carries fixed non-claims.
 3. Two typographical ambiguities of the scanned source are resolved by
