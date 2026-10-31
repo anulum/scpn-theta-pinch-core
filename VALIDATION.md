@@ -30,6 +30,7 @@ followed by the evidence record of each implemented capability.
 | Workflow modularity | `python3 tools/audit_workflows.py` | distributed workflow inventory: single ownership per job, coordinator/gate contract, action pinning, size ceilings |
 | Native kernels | `make rust` (`cargo fmt --check`, `cargo clippy --all-targets --features python -- -D warnings`, `cargo doc --no-deps --features python`, `cargo test` in `rust/`) | formatting, lints with warnings denied, native API documentation, kernel unit tests |
 | Native parity | `pytest -q tests/test_physics_native_parity.py` | bit-exact float64 agreement of every native kernel with the Python floor (skipped hermetically when the optional native module is absent) |
+| Installed wheel (CI only) | `python -I tools/installed_package_check.py --mode base|cad --checkout <checkout>` in clean environments holding the built wheel with the kernel library (base) or with the CAD extra (cad) | package imported from site-packages, `py.typed` shipped, metadata version and kernel requirement, configuration and geometry round trip, deterministic level-0 record and device model; base must raise `CadUnavailableError` for a CAD request, cad must build a STEP model |
 | Documentation | `python3 tools/preflight.py --only docs` | UTF-8 readability and link-target integrity of every Markdown file, including angle-enclosed paths with spaces and parentheses |
 | Orchestrated | `python3 tools/preflight.py` | fail-closed run of all gates above |
 
