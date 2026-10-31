@@ -15,6 +15,15 @@ SCPN Theta Pinch Core — README
 
 # SCPN Theta Pinch Core
 
+[![CI](https://github.com/anulum/scpn-theta-pinch-core/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/anulum/scpn-theta-pinch-core/actions/workflows/ci.yml)
+[![CodeQL](https://github.com/anulum/scpn-theta-pinch-core/actions/workflows/codeql.yml/badge.svg?branch=main)](https://github.com/anulum/scpn-theta-pinch-core/actions/workflows/codeql.yml)
+[![Pre-commit](https://github.com/anulum/scpn-theta-pinch-core/actions/workflows/pre-commit.yml/badge.svg?branch=main)](https://github.com/anulum/scpn-theta-pinch-core/actions/workflows/pre-commit.yml)
+[![Security audit](https://github.com/anulum/scpn-theta-pinch-core/actions/workflows/security-audit.yml/badge.svg?branch=main)](https://github.com/anulum/scpn-theta-pinch-core/actions/workflows/security-audit.yml)
+[![Docs](https://github.com/anulum/scpn-theta-pinch-core/actions/workflows/docs.yml/badge.svg?branch=main)](https://github.com/anulum/scpn-theta-pinch-core/actions/workflows/docs.yml)
+[![License: AGPL-3.0-or-later](https://img.shields.io/badge/License-AGPL--3.0--or--later-blue.svg)](LICENSE)
+[![Commercial license available](https://img.shields.io/badge/Commercial_license-available-success.svg)](mailto:protoscience@anulum.li?subject=SCPN%20Theta%20Pinch%20Core%20Commercial%20License)
+[![Sponsor](https://img.shields.io/badge/Sponsor-GitHub%20Sponsors-ea4aaa?logo=githubsponsors&logoColor=white)](https://github.com/sponsors/anulum)
+
 Governed device-family repository for theta-pinch fusion systems within the
 SCPN Reactor Systems Research Group. This repository is the designated
 owner of device-level truth for the `theta_pinch` configuration of the SCPN
