@@ -50,7 +50,7 @@ WIDTH_IN, HEIGHT_IN, DPI = 12.8, 6.4, 100
 TITLE_METRICS: list[tuple[str, str]] = [
     ("Device Configuration", "theta_pinch · azimuthal-current pinch"),
     ("Hard Invariant", "radial pressure balance · beta <= 1"),
-    ("High-Beta Regime", "low beta flagged (Ribe, RMP 47, 1975)"),
+    ("High-Beta Floor", "beta below declared 0.5 flagged"),
     ("Diagnostics & Clocks", "fail-closed vs pinned SPO catalogue"),
     ("Plan Envelope", "v1.1.0 · synthetic · review-only"),
     ("Quality Gates", "100% branch cov · mypy --strict"),
@@ -369,7 +369,7 @@ def generate_beta_gate() -> None:
     ax.text(
         1.3,
         (y_band + y_wall) / 2,
-        "characteristic high-beta regime",
+        "high beta · above declared floor",
         color=GREEN,
         fontsize=8,
         fontfamily="monospace",
@@ -391,7 +391,7 @@ def generate_beta_gate() -> None:
     ax.text(
         5.0,
         0.75,
-        "radial pressure balance checked · Ribe, Rev. Mod. Phys. 47 (1975) 7",
+        "radial pressure balance checked · Scyllac beta: Quinn, LA-UR-73-1053",
         color="#445566",
         fontsize=8,
         fontfamily="monospace",
